@@ -1,15 +1,51 @@
 "use client";
 
+import { useState } from "react";
+
 export default function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
   const fieldClass =
     "w-full bg-card text-ink font-display px-4 py-[14px] text-[15px] border border-line rounded-[3px] focus:outline-none focus:border-accent transition-colors duration-[200ms]";
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    setStatus(res.ok ? "sent" : "error");
+  }
+
+  if (status === "sent") {
+    return (
+      <div className="py-10">
+        <p className="font-display text-ink text-[22px] font-semibold mb-2">Got it.</p>
+        <p className="font-mono uppercase text-faint" style={{ fontSize: 11, letterSpacing: "0.14em" }}>
+          We&apos;ll be in touch at your email.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {[
-        { label: "Name", type: "text", placeholder: "Your name" },
-        { label: "Company", type: "text", placeholder: "Company or brand" },
-        { label: "Email", type: "email", placeholder: "you@company.com" },
+        { label: "Name", name: "name", type: "text", placeholder: "Your name" },
+        { label: "Company", name: "company", type: "text", placeholder: "Company or brand" },
+        { label: "Email", name: "email", type: "email", placeholder: "you@company.com" },
       ].map((field) => (
         <div key={field.label} className="mb-5">
           <label
@@ -20,7 +56,9 @@ export default function ContactForm() {
           </label>
           <input
             type={field.type}
+            name={field.name}
             placeholder={field.placeholder}
+            required={field.name !== "company"}
             className={fieldClass}
           />
         </div>
@@ -34,19 +72,27 @@ export default function ContactForm() {
           The project
         </label>
         <textarea
+          name="message"
           placeholder="What are you making, and when do you need it"
+          required
           className={`${fieldClass} resize-y`}
           style={{ minHeight: 120 }}
         />
       </div>
 
-      {/* TODO: wire to a real handler (Formspree, Resend, or Next.js route) */}
+      {status === "error" && (
+        <p className="font-mono text-accent mb-4" style={{ fontSize: 11 }}>
+          Something went wrong. Email us directly at hello@makemovegrow.com
+        </p>
+      )}
+
       <button
         type="submit"
-        className="font-mono uppercase text-paper bg-ink hover:bg-accent transition-colors duration-[250ms] cursor-pointer border-0 px-7 py-[15px] mt-[6px]"
+        disabled={status === "sending"}
+        className="font-mono uppercase text-paper bg-ink hover:bg-accent transition-colors duration-[250ms] cursor-pointer border-0 px-7 py-[15px] mt-[6px] disabled:opacity-50"
         style={{ fontSize: 12, letterSpacing: "0.14em" }}
       >
-        Send
+        {status === "sending" ? "Sending..." : "Send"}
       </button>
     </form>
   );

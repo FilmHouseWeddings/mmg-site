@@ -23,7 +23,7 @@ export default function Contact() {
         <Reveal delay={0.2}>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
-              href="mailto:hello@mmggroup.co"
+              href="mailto:hello@makemovegrow.com"
               className="inline-flex items-center font-mono text-[11px] tracking-[0.15em] uppercase bg-accent text-bone px-8 py-4 hover:bg-ink hover:text-bone border border-accent transition-all duration-300"
             >
               Start a project

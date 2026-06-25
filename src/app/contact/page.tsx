@@ -54,9 +54,8 @@ export default function ContactPage() {
                   >
                     New projects
                   </div>
-                  {/* TODO: replace with real email */}
                   <a
-                    href="mailto:hello@mmg.com"
+                    href="mailto:hello@makemovegrow.com"
                     className="font-display font-semibold text-ink no-underline pb-1 hover:text-accent transition-colors duration-[250ms]"
                     style={{
                       fontSize: "clamp(22px,3.2vw,34px)",
@@ -64,7 +63,7 @@ export default function ContactPage() {
                       borderBottom: "1px solid #CB2138",
                     }}
                   >
-                    hello@mmg.com
+                    hello@makemovegrow.com
                   </a>
                 </div>
 
@@ -76,7 +75,7 @@ export default function ContactPage() {
                     Studio
                   </div>
                   <p className="text-muted m-0" style={{ fontSize: 16 }}>
-                    Orange County and Los Angeles
+                    Los Angeles
                   </p>
                   <p className="text-muted m-0" style={{ fontSize: 16 }}>
                     Working nationwide and on location

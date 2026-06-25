@@ -20,6 +20,16 @@ export default function Contact() {
           </h2>
         </Reveal>
 
+        <Reveal delay={0.15}>
+          <a
+            href="mailto:hello@makemovegrow.com"
+            className="font-mono text-bone opacity-60 hover:opacity-100 transition-opacity duration-300 mb-10 block"
+            style={{ fontSize: 13, letterSpacing: "0.12em" }}
+          >
+            hello@makemovegrow.com
+          </a>
+        </Reveal>
+
         <Reveal delay={0.2}>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a

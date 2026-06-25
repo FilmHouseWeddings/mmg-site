@@ -38,8 +38,6 @@ export default function Footer() {
           className="font-mono uppercase text-faint text-right"
           style={{ fontSize: 11, letterSpacing: "0.14em", lineHeight: 2 }}
         >
-          A Media Group<br />
-          Make. Move. Grow.<br />
           Los Angeles
         </div>
       </div>

@@ -15,9 +15,27 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MMG | A Media Group",
+  metadataBase: new URL("https://www.makemovegrow.com"),
+  title: {
+    template: "%s — MMG",
+    default: "MMG — Make. Move. Grow. | Los Angeles Production House",
+  },
   description:
-    "MMG is a multimedia production company. Brand and commercial films, corporate events, live production and broadcast, photography, and post.",
+    "MMG is a Los Angeles production house. You bring the idea — we bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+  openGraph: {
+    siteName: "MMG",
+    type: "website",
+    locale: "en_US",
+    title: "MMG — Make. Move. Grow. | Los Angeles Production House",
+    description:
+      "MMG is a Los Angeles production house. You bring the idea — we bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MMG — Make. Move. Grow. | Los Angeles Production House",
+    description:
+      "MMG is a Los Angeles production house. You bring the idea — we bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${archivo.variable} ${spaceMono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${archivo.variable} ${spaceMono.variable}`}>
       <body>{children}</body>
     </html>
   );

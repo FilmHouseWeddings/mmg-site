@@ -7,24 +7,24 @@ export default function Hero() {
       <div className="max-w-[1200px] mx-auto px-9">
         <Reveal>
           <h1
-            className="font-display m-0 text-ink max-w-[26ch]"
+            className="font-display m-0 text-ink max-w-[16ch]"
             style={{
               fontWeight: 500,
-              fontSize: "clamp(28px,3.6vw,45px)",
-              lineHeight: 1.14,
-              letterSpacing: "-0.015em",
+              fontSize: "clamp(34px,5.2vw,64px)",
+              lineHeight: 1.06,
+              letterSpacing: "-0.02em",
             }}
           >
-            MMG is the production and storytelling partner for brands and events that{" "}
-            <span className="text-accent">shape culture.</span>
+            Ideas deserve <span className="text-accent">execution.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.05}>
           <div
-            className="font-mono uppercase text-faint mt-[22px]"
-            style={{ fontSize: 11, letterSpacing: "0.18em" }}
+            className="font-mono text-muted mt-[22px] max-w-[46ch]"
+            style={{ fontSize: 13, letterSpacing: "0.01em", lineHeight: 1.6 }}
           >
-            Based in Los Angeles
+            MMG is a Los Angeles production house. You bring the idea — we bring the
+            crew, the cameras, and the finish.
           </div>
         </Reveal>
       </div>

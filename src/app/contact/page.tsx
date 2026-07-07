@@ -35,7 +35,7 @@ export default function ContactPage() {
         </section>
 
         {/* Hairline rule */}
-        <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
+        <div className="h-px bg-line" />
 
         {/* Two-column layout */}
         <section className="pb-[110px]">

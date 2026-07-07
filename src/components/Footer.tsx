@@ -9,10 +9,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer
-      className="py-14"
-      style={{ borderTop: "1px solid rgba(22,22,27,.12)" }}
-    >
+    <footer className="py-14 border-t border-line">
       <div className="max-w-[1200px] mx-auto px-9 flex justify-between gap-6 flex-wrap items-start">
         <span
           className="font-display font-black text-ink"

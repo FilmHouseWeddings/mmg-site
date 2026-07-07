@@ -1,5 +1,9 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Reveal from "./Reveal";
-import { workTiles } from "@/lib/content";
+import { caseStudies } from "@/lib/content";
 
 function PlayPip({ size = 38 }: { size?: number }) {
   const arrow = Math.round(size * 0.26);
@@ -24,7 +28,7 @@ function TileLabel({ category, title, large = false }: { category: string; title
         {category}
       </div>
       <div
-        className="font-display font-bold mt-[6px]"
+        className="font-display font-bold mt-[6px] transition-[color,transform] duration-300 group-hover:text-accent group-hover:translate-x-[3px]"
         style={{ fontSize: large ? "clamp(20px,2.6vw,28px)" : "clamp(15px,1.8vw,19px)", color: "#F4F2ED" }}
       >
         {title}
@@ -32,6 +36,48 @@ function TileLabel({ category, title, large = false }: { category: string; title
     </div>
   );
 }
+
+function LazyVimeoBg({ vimeoId, vimeoHash, title }: { vimeoId: string; vimeoHash?: string; title: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="absolute inset-0 w-full h-full">
+      {inView && (
+        <iframe
+          src={`https://player.vimeo.com/video/${vimeoId}?h=${vimeoHash}&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1`}
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          className="absolute inset-0 w-full h-full"
+          style={{ pointerEvents: "none" }}
+          title={title}
+        />
+      )}
+    </div>
+  );
+}
+
+const categoryLabelByFirst: Record<string, string> = {
+  branded: "Brand Film",
+  "event-coverage": "Corporate Event",
+  "live-action": "Live Action",
+};
 
 export default function Work() {
   return (
@@ -57,33 +103,35 @@ export default function Work() {
           className="grid gap-[18px]"
           style={{ gridTemplateColumns: "repeat(12, 1fr)" }}
         >
-          {workTiles.map((tile) => {
-            const wide = tile.span >= 6;
-            const fill = tile.ratio === "fill";
+          {caseStudies.map((cs) => {
+            const wide = cs.span >= 6;
+            const fill = cs.ratio === "fill";
+            const category = categoryLabelByFirst[cs.categories[0]] ?? cs.categories[0];
             return (
               <div
-                key={tile.title}
-                style={{ gridColumn: `span ${tile.span}` }}
+                key={cs.slug}
+                style={{ gridColumn: `span ${cs.span}` }}
                 className={`max-lg:[grid-column:1_/_-1]${fill ? " h-full" : ""}`}
               >
                 <Reveal className={fill ? "h-full" : undefined}>
-                  <div
+                  <Link
+                    href={`/project/${cs.slug}`}
                     className={`group relative flex flex-col justify-end overflow-hidden cursor-pointer transition-[transform,box-shadow] duration-[350ms] hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(22,22,27,.14)]${fill ? " h-full" : ""}`}
-                    style={{ background: tile.bg, ...(!fill && { aspectRatio: tile.ratio }) }}
+                    style={{ background: cs.bg, ...(!fill && { aspectRatio: cs.ratio }) }}
                   >
-                    {tile.vimeoId && (
-                      <iframe
-                        src={`https://player.vimeo.com/video/${tile.vimeoId}?h=${tile.vimeoHash}&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&loop=1&background=1`}
-                        frameBorder="0"
-                        allow="autoplay; fullscreen; picture-in-picture"
-                        className="absolute inset-0 w-full h-full"
-                        style={{ pointerEvents: "none" }}
-                        title={tile.title}
+                    {cs.heroVideo && (
+                      <LazyVimeoBg
+                        vimeoId={cs.heroVideo.vimeoId}
+                        vimeoHash={cs.heroVideo.vimeoHash}
+                        title={cs.title}
                       />
                     )}
+                    <div
+                      className="absolute inset-0 bg-[#0a0a0d] opacity-0 transition-opacity duration-300 group-hover:opacity-20 pointer-events-none"
+                    />
                     <PlayPip size={wide ? 42 : 36} />
-                    <TileLabel category={tile.category} title={tile.title} large={wide} />
-                  </div>
+                    <TileLabel category={category} title={cs.title} large={wide} />
+                  </Link>
                 </Reveal>
               </div>
             );
@@ -93,13 +141,13 @@ export default function Work() {
         {/* View all */}
         <Reveal>
           <div className="mt-[30px] text-center">
-            <a
-              href="#work"
-              className="font-mono uppercase text-ink no-underline hover:text-accent transition-colors duration-[250ms] pb-[5px]"
+            <Link
+              href="/work"
+              className="font-mono uppercase text-accent no-underline hover:text-ink transition-colors duration-[250ms] pb-[5px]"
               style={{ fontSize: 12, letterSpacing: "0.14em", borderBottom: "1px solid #CB2138" }}
             >
-              View all work
-            </a>
+              All work →
+            </Link>
           </div>
         </Reveal>
       </div>

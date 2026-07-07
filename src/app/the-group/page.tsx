@@ -50,7 +50,7 @@ export default function TheGroupPage() {
         </section>
 
         {/* Hairline rule */}
-        <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
+        <div className="h-px bg-line" />
 
         {/* Divisions list */}
         <section className="pt-5 pb-[110px]">
@@ -58,11 +58,7 @@ export default function TheGroupPage() {
             {divisions.map((div) => (
               <Reveal key={div.nameAccent}>
                 <div
-                  className="grid items-baseline gap-10 py-[48px] max-[820px]:grid-cols-1 max-[820px]:gap-[14px]"
-                  style={{
-                    gridTemplateColumns: "280px 1fr",
-                    borderBottom: "1px solid rgba(22,22,27,.12)",
-                  }}
+                  className="grid items-baseline gap-10 py-[48px] border-b border-line grid-cols-[280px_1fr] max-[820px]:grid-cols-1 max-[820px]:gap-[14px]"
                 >
                   <div>
                     <div

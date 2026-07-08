@@ -121,9 +121,7 @@ export default function AboutPage() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Your campaign, filmed. Your event, captured.
-                <br className="hidden md:block" /> Your broadcast, run live.
-                Your stills, shot.
+                Ads &middot; Brand films &middot; Live events &middot; Live action &middot; Government initiatives &middot; Corporate campaigns
               </p>
             </div>
           </section>

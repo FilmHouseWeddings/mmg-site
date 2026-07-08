@@ -1,13 +1,40 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import { categories } from "@/lib/content";
+import Pillars, { type Pillar, type PillarCategory } from "@/components/Pillars";
+import { categories, caseStudies } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "What We Do",
 };
+
+// Preview video/gradient per category — first case study in that category
+// with a heroVideo, else the first case study's bg gradient.
+const previewCategories: PillarCategory[] = categories.map((cat) => {
+  const withVideo = caseStudies.find(
+    (cs) => cs.categories.includes(cat.slug) && cs.heroVideo
+  );
+  const fallback = caseStudies.find((cs) => cs.categories.includes(cat.slug));
+  return {
+    slug: cat.slug,
+    label: cat.label,
+    vimeoId: withVideo?.heroVideo?.vimeoId,
+    vimeoHash: withVideo?.heroVideo?.vimeoHash,
+    bg:
+      (withVideo ?? fallback)?.bg ??
+      "linear-gradient(155deg,#2b2b33,#0e0e12)",
+  };
+});
+
+const pillars: Pillar[] = [
+  {
+    heading: "content creation",
+    sentence:
+      "Cinematic, whatever the brief — filmed, cut, and delivered ready to run.",
+    categorySlugs: categories.map((cat) => cat.slug),
+  },
+];
 
 export default function WorkPage() {
   return (
@@ -60,53 +87,8 @@ export default function WorkPage() {
         {/* Hairline rule */}
         <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
 
-        {/* Category blocks */}
-        <section className="pt-4 pb-[110px]">
-          <div className="max-w-[1200px] mx-auto px-5 md:px-9">
-            <Reveal>
-              <div
-                className="font-mono uppercase text-accent mb-[18px]"
-                style={{ fontSize: 11, letterSpacing: "0.16em" }}
-              >
-                Content Creation
-              </div>
-            </Reveal>
-            {categories.map((cat, i) => (
-              <Reveal key={cat.slug} delay={i * 0.06}>
-                <div
-                  className="group flex flex-col gap-5 py-[40px] md:flex-row md:items-center md:justify-between md:gap-8"
-                  style={{ borderBottom: "1px solid rgba(22,22,27,.12)" }}
-                >
-                  <div className="flex-1">
-                    <h2
-                      className="font-display font-semibold lowercase text-accent m-0"
-                      style={{
-                        fontSize: "clamp(32px,5vw,58px)",
-                        lineHeight: 1,
-                        letterSpacing: "-0.01em",
-                      }}
-                    >
-                      {cat.label}
-                    </h2>
-                    <p
-                      className="text-muted mt-[14px] mb-0"
-                      style={{ fontSize: 16, maxWidth: "48ch" }}
-                    >
-                      {cat.blurb}
-                    </p>
-                  </div>
-                  <Link
-                    href={`/work/${cat.slug}`}
-                    className="font-mono uppercase whitespace-nowrap rounded-full px-6 py-[12px] no-underline transition-colors duration-200 bg-[rgba(22,22,27,.06)] text-ink hover:bg-accent hover:text-paper"
-                    style={{ fontSize: 11, letterSpacing: "0.14em" }}
-                  >
-                    View {cat.label}
-                  </Link>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {/* Pillars */}
+        <Pillars pillars={pillars} categories={previewCategories} />
       </main>
       <Footer />
     </>

@@ -147,12 +147,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <p
-                className="font-mono uppercase text-faint mt-[60px] mb-0"
-                style={{ fontSize: 12, letterSpacing: "0.1em" }}
-              >
-                Branded &middot; Event Coverage &middot; Corporate &amp; Government &middot; Live Action
-              </p>
             </Reveal>
           </div>
         </section>

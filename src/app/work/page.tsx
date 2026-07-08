@@ -3,8 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import ProjectCard from "@/components/ProjectCard";
-import { categories, caseStudies } from "@/lib/content";
+import { categories } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "What We Do",
@@ -62,7 +61,7 @@ export default function WorkPage() {
         <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
 
         {/* Category blocks */}
-        <section className="pt-4 pb-[70px]">
+        <section className="pt-4 pb-[110px]">
           <div className="max-w-[1200px] mx-auto px-5 md:px-9">
             <Reveal>
               <div
@@ -106,27 +105,6 @@ export default function WorkPage() {
                 </div>
               </Reveal>
             ))}
-          </div>
-        </section>
-
-        {/* Full project grid */}
-        <section className="pt-4 pb-[110px]">
-          <div className="max-w-[1200px] mx-auto px-5 md:px-9">
-            <Reveal>
-              <div
-                className="font-mono uppercase text-faint mb-[34px]"
-                style={{ fontSize: 11, letterSpacing: "0.16em" }}
-              >
-                All Projects
-              </div>
-            </Reveal>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-[52px] md:grid-cols-2">
-              {caseStudies.map((cs, i) => (
-                <Reveal key={cs.slug} delay={i * 0.06}>
-                  <ProjectCard cs={cs} />
-                </Reveal>
-              ))}
-            </div>
           </div>
         </section>
       </main>

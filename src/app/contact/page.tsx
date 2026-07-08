@@ -58,7 +58,7 @@ export default function ContactPage() {
                       letterSpacing: "-0.02em",
                     }}
                   >
-                    Dennis
+                    Dennis Muyar
                   </h2>
                   <p
                     className="font-mono uppercase text-muted mt-2 mb-0"
@@ -79,39 +79,21 @@ export default function ContactPage() {
         <section className="py-[70px] border-b border-line">
           <div className="max-w-[1200px] mx-auto px-9">
             <Reveal delay={0.05}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div>
-                  <div className={KICKER_CLASS} style={KICKER_STYLE}>
-                    General Inquiries
-                  </div>
-                  <a
-                    href="mailto:hello@makemovegrow.com"
-                    className="font-display font-semibold text-ink no-underline pb-1 hover:text-accent transition-colors duration-[250ms]"
-                    style={{
-                      fontSize: "clamp(20px,2.6vw,28px)",
-                      letterSpacing: "-0.01em",
-                      borderBottom: "1px solid #CB2138",
-                    }}
-                  >
-                    hello@makemovegrow.com
-                  </a>
+              <div>
+                <div className={KICKER_CLASS} style={KICKER_STYLE}>
+                  General Inquiry / Press
                 </div>
-                <div>
-                  <div className={KICKER_CLASS} style={KICKER_STYLE}>
-                    Press
-                  </div>
-                  <a
-                    href="mailto:hello@makemovegrow.com"
-                    className="font-display font-semibold text-ink no-underline pb-1 hover:text-accent transition-colors duration-[250ms]"
-                    style={{
-                      fontSize: "clamp(20px,2.6vw,28px)",
-                      letterSpacing: "-0.01em",
-                      borderBottom: "1px solid #CB2138",
-                    }}
-                  >
-                    hello@makemovegrow.com
-                  </a>
-                </div>
+                <a
+                  href="mailto:hello@makemovegrow.com"
+                  className="font-display font-semibold text-ink no-underline pb-1 hover:text-accent transition-colors duration-[250ms]"
+                  style={{
+                    fontSize: "clamp(20px,2.6vw,28px)",
+                    letterSpacing: "-0.01em",
+                    borderBottom: "1px solid #CB2138",
+                  }}
+                >
+                  hello@makemovegrow.com
+                </a>
               </div>
             </Reveal>
           </div>

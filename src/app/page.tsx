@@ -1,8 +1,6 @@
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Work from "@/components/Work";
-import TrustedBy from "@/components/TrustedBy";
-import Stance from "@/components/Stance";
+import HeroSlideshow from "@/components/HeroSlideshow";
+import Feed from "@/components/Feed";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -10,10 +8,8 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <Hero />
-        <TrustedBy />
-        <Stance />
-        <Work />
+        <HeroSlideshow />
+        <Feed />
       </main>
       <Footer />
     </>

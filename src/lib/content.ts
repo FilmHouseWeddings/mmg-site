@@ -50,37 +50,17 @@ export const capabilities = [
   },
 ];
 
-export const divisions = [
-  {
-    name: "MMG",
-    nameAccent: "Films",
-    role: "Brand and Commercial",
-    lead: "The narrative arm.",
-    body: "Campaigns, brand films, and advertising for lifestyle and major brands, from concept and treatment through to the final color. Written and shot to feel like film, not filler.",
-  },
-  {
-    name: "MMG",
-    nameAccent: "Live",
-    role: "Events and Broadcast",
-    lead: "The event arm.",
-    body: "Corporate event coverage, multi camera capture, and live streaming at scale. Conferences, galas, launches, and keynotes, run clean and run on time by a crew that has done it before.",
-  },
-  {
-    name: "MMG",
-    nameAccent: "Studio",
-    role: "Photo and Post",
-    lead: "The craft arm.",
-    body: "Photography, editing, color, sound, and finishing, all delivered in house. One consistent eye across motion and still, so every deliverable carries the same intent.",
-  },
-];
-
 export type MediaItem =
   | { type: "vimeo"; vimeoId: string; vimeoHash?: string }
   | { type: "image"; src: string; alt: string };
 
 export type Credit = { role: string; name: string };
 
-export type CategorySlug = "branded" | "event-coverage" | "live-action";
+export type CategorySlug =
+  | "branded"
+  | "event-coverage"
+  | "corporate-government"
+  | "live-action";
 
 export type Category = { slug: CategorySlug; label: string; blurb: string };
 
@@ -114,6 +94,12 @@ export const categories: Category[] = [
     label: "Event Coverage",
     blurb:
       "Conferences, galas, and launches, captured multi camera and cut for maximum impact.",
+  },
+  {
+    slug: "corporate-government",
+    label: "Corporate & Government",
+    blurb:
+      "Summits, conferences, and official proceedings, filmed and delivered with discretion.",
   },
   {
     slug: "live-action",
@@ -157,11 +143,12 @@ export const caseStudies: CaseStudy[] = [
     slug: "summit-recap",
     title: "Summit Recap",
     client: "TBD", // TODO: replace placeholder content
-    roleLine: "Event coverage for Summit",
-    categories: ["event-coverage"],
+    roleLine: "Corporate & government coverage for Summit",
+    // [PLACEHOLDER] categorization — Dennis to confirm
+    categories: ["corporate-government"],
     // TODO: replace placeholder content
     synopsis:
-      "[PLACEHOLDER] A multi day corporate summit needed same day recap coverage to capture keynotes, breakout sessions, and the overall energy of the event for both attendees and social distribution.",
+      "[PLACEHOLDER] A multi day corporate summit needed same day recap coverage to capture keynotes, breakout sessions, and the overall energy of the proceedings for both attendees and official distribution.",
     // TODO: replace placeholder content
     whatWeDid:
       "[PLACEHOLDER] MMG ran multi camera coverage across the main stage and breakout rooms, turning around a same day highlight recap while banking footage for a longer form piece delivered the following week.",
@@ -282,6 +269,7 @@ export function getRelated(cs: CaseStudy): CaseStudy[] {
 const categoryLabelBySlug: Record<CategorySlug, string> = {
   branded: "Brand Film",
   "event-coverage": "Corporate Event",
+  "corporate-government": "Corporate & Government",
   "live-action": "Live Action",
 };
 

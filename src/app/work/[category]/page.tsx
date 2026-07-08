@@ -26,8 +26,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { category } = await params;
   const cat = getCategory(category);
-  if (!cat) return { title: "MMG | Work" };
-  return { title: `${cat.label} — MMG` };
+  if (!cat) return { title: "What We Do" };
+  return { title: cat.label };
 }
 
 export default async function WorkCategoryPage({

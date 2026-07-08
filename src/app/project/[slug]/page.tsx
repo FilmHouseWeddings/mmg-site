@@ -21,11 +21,11 @@ export async function generateMetadata({
   const cs = getCaseStudy(slug);
 
   if (!cs) {
-    return { title: "Project — MMG" };
+    return { title: "Project" };
   }
 
   return {
-    title: `${cs.title} — MMG`,
+    title: cs.title,
     description: cs.synopsis,
   };
 }

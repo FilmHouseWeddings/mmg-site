@@ -2,10 +2,9 @@ import Link from "next/link";
 
 export default function Footer() {
   const navLinks = [
-    { label: "Work", href: "/#work" },
-    { label: "Capabilities", href: "/capabilities" },
-    { label: "The Group", href: "/the-group" },
-    { label: "Contact", href: "/contact" },
+    { label: "what we do", href: "/work" },
+    { label: "about us", href: "/about" },
+    { label: "contact", href: "/contact" },
   ];
 
   return (

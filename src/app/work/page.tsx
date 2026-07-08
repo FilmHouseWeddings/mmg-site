@@ -7,7 +7,7 @@ import ProjectCard from "@/components/ProjectCard";
 import { categories, caseStudies } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "MMG | Work",
+  title: "What We Do",
 };
 
 export default function WorkPage() {
@@ -64,6 +64,14 @@ export default function WorkPage() {
         {/* Category blocks */}
         <section className="pt-4 pb-[70px]">
           <div className="max-w-[1200px] mx-auto px-5 md:px-9">
+            <Reveal>
+              <div
+                className="font-mono uppercase text-accent mb-[18px]"
+                style={{ fontSize: 11, letterSpacing: "0.16em" }}
+              >
+                Content Creation
+              </div>
+            </Reveal>
             {categories.map((cat, i) => (
               <Reveal key={cat.slug} delay={i * 0.06}>
                 <div

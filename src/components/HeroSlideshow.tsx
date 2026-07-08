@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { caseStudies } from "@/lib/content";
 
 const AUTO_ADVANCE_MS = 6000;
@@ -71,6 +71,7 @@ export default function HeroSlideshow() {
   const [arrowActive, setArrowActive] = useState(false);
   const [brandVisible, setBrandVisible] = useState(false);
   const [brandMounted, setBrandMounted] = useState(true);
+  const [revealed, setRevealed] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
@@ -110,27 +111,44 @@ export default function HeroSlideshow() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Brand statement: fade in on mount, hold, then fade out.
-  useEffect(() => {
+  // Intro choreography: brand statement fades in on paper, then cross-fades into
+  // the revealed slideshow. Runs once per mount. Uses useLayoutEffect (rather than
+  // useEffect) so the prefers-reduced-motion skip is applied before first paint,
+  // avoiding any flash of the statement/paper frame.
+  useLayoutEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReduced) {
+      setRevealed(true);
+      setBrandMounted(false);
+      return;
+    }
+
     const fadeInTimer = requestAnimationFrame(() => setBrandVisible(true));
-    const fadeOutTimer = setTimeout(() => setBrandVisible(false), 2500);
-    const unmountTimer = setTimeout(() => setBrandMounted(false), 2500 + 800);
+    const crossfadeTimer = setTimeout(() => {
+      setBrandVisible(false);
+      setRevealed(true);
+    }, 1300);
+    const unmountTimer = setTimeout(() => setBrandMounted(false), 1300 + 600);
     return () => {
       cancelAnimationFrame(fadeInTimer);
-      clearTimeout(fadeOutTimer);
+      clearTimeout(crossfadeTimer);
       clearTimeout(unmountTimer);
     };
   }, []);
 
   // Auto-advance every 6s, forever. Manual nav restarts the interval (via navCount)
-  // rather than killing it.
+  // rather than killing it. Gated on `revealed` so slide 1 gets its full 6s once
+  // the slideshow is actually visible.
   useEffect(() => {
-    if (slides.length < 2 || reducedMotion) return;
+    if (slides.length < 2 || reducedMotion || !revealed) return;
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % slides.length);
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(timer);
-  }, [slides.length, reducedMotion, navCount]);
+  }, [slides.length, reducedMotion, navCount, revealed]);
 
   if (slides.length === 0) return null;
 
@@ -165,7 +183,9 @@ export default function HeroSlideshow() {
     <section className="relative px-4 md:px-9 pt-[70px] lg:pt-[128px]">
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden bg-ink outline-none"
+        className={`relative w-full overflow-hidden outline-none ${
+          revealed ? "bg-ink" : "bg-paper"
+        }`}
         style={{ height: "clamp(420px, 70vh, 820px)" }}
         tabIndex={0}
         onKeyDown={handleKeyDown}
@@ -173,6 +193,14 @@ export default function HeroSlideshow() {
         onMouseEnter={() => canHover && setArrowActive(true)}
         onMouseLeave={() => setArrowActive(false)}
       >
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: revealed ? 1 : 0,
+            transition: "opacity 0.8s ease",
+          }}
+          aria-hidden={!revealed}
+        >
         {slides.map((slide, index) => {
           const isActive = index === active;
           const isNext = index === (active + 1) % slides.length;
@@ -271,6 +299,7 @@ export default function HeroSlideshow() {
             </div>
           );
         })}
+        </div>
 
         {/* Cursor-following directional arrow (desktop pointer devices only) */}
         {canHover && (
@@ -295,7 +324,9 @@ export default function HeroSlideshow() {
               letterSpacing: "-0.02em",
               color: "var(--color-ink)",
               opacity: brandVisible ? 1 : 0,
-              transition: "opacity 0.8s ease",
+              transition: brandVisible
+                ? "opacity 0.3s ease"
+                : "opacity 0.6s ease",
             }}
           >
             Ideas deserve <span className="text-accent">execution.</span>
@@ -309,7 +340,7 @@ export default function HeroSlideshow() {
           className="relative w-full mt-4 md:mt-5 overflow-hidden"
           style={{ height: 2, background: "rgba(22,22,27,0.12)" }}
         >
-          {!reducedMotion && (
+          {!reducedMotion && revealed && (
             <div
               key={`${active}-${navCount}`}
               className="absolute inset-y-0 left-0 bg-accent"

@@ -17,27 +17,15 @@ export default function ContactPage() {
       <Header />
       <main className="flex-1">
         {/* Statement */}
-        <section className="pt-[120px] pb-[60px]">
+        <section className="pt-[120px] pb-[40px]">
           <div className="max-w-[1200px] mx-auto px-9">
             <Reveal>
               <span
-                className="block font-mono uppercase text-accent mb-[26px]"
+                className="block font-mono uppercase text-accent mb-0"
                 style={{ fontSize: 11, letterSpacing: "0.22em" }}
               >
                 Contact
               </span>
-              <h1
-                className="font-display font-semibold m-0 text-ink"
-                style={{
-                  fontSize: "clamp(44px,9vw,116px)",
-                  lineHeight: 0.96,
-                  letterSpacing: "-0.025em",
-                }}
-              >
-                Let&apos;s build
-                <br />
-                something <span className="text-accent">lasting.</span>
-              </h1>
             </Reveal>
           </div>
         </section>

@@ -14,11 +14,13 @@ Same-day iterations included in the launch (commits `1808bc5`, `ba40bde`):
 - Intro overlay spacing fix ("Ideas deserve execution." — single span child inside flex h1)
 - About: v2 narrative story (no em dashes, "Dennis' father"), stance section removed
 
+Post-deploy same day (commit `2df58a5`, also live): empty-category state is now a styled "Coming soon." block (currently only Live Action shows it).
+
 Post-launch TODOs:
 - [ ] Write real synopses/whatWeDid/credits in content.ts (sections auto-appear)
 - [ ] Confirm dennis@makemovegrow.com mailbox exists (contact reveal email!) — flip char codes to hello@ if not
 - [ ] Real social URLs → flip SHOW_SOCIALS in Footer.tsx + contact/page.tsx
-- [ ] Live Action category page is empty (Founder Story unpublished) — publish with video or pause category
+- [ ] Live Action: publish Founder Story with video (page shows "Coming soon." until then)
 - [ ] Academy Awards Governors Ball video (if separate from Emmys one)
 - [ ] Real live-action preview footage for work-page pill (still Adizero)
 - [ ] OG image; designed 404; Vimeo poster frames for slideshow

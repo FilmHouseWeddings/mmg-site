@@ -1,7 +1,32 @@
 # MMG Site — Session Recap
 Last updated: July 21, 2026
 
-## Current State: PARTIAL-LAUNCH BUILD READY — AWAITING DENNIS'S LOCALHOST OK TO DEPLOY
+## Current State: 🚀 REDESIGN IS LIVE ON makemovegrow.com (deployed July 21, 2026)
+
+Merged `if-redesign` → `main` at `ba40bde`, pushed, Vercel deployed. Smoke-checked in production: all pages 200, hidden projects/category 404, no placeholder text rendered, reveal email absent from HTML, thumbnails loading.
+
+Same-day iterations included in the launch (commits `1808bc5`, `ba40bde`):
+- CaseVideo = full Vimeo player with controls (background=1 had killed the play button)
+- New published projects: **Emmys Governors Ball** (event-coverage; Dennis asked for "Academy Awards" but supplied video is titled Emmys — confirm; client listed as Sequoia Productions, unconfirmed) and **City of Lancaster | Commercial** (branded)
+- **Corporate & Government category paused** (commented out in content.ts); Summit Recap moved to event-coverage
+- Vimeo oEmbed poster thumbnails on category + related cards (`src/lib/vimeo.ts`, 24h cache, gradient fallback)
+- Homepage feed order via `FEED_ORDER` in content.ts: Governors Ball, Calvin Klein, Adizero, CRAVE, Augustinus Bader, Lancaster (slideshow order unchanged — CRAVE first)
+- Intro overlay spacing fix ("Ideas deserve execution." — single span child inside flex h1)
+- About: v2 narrative story (no em dashes, "Dennis' father"), stance section removed
+
+Post-launch TODOs:
+- [ ] Write real synopses/whatWeDid/credits in content.ts (sections auto-appear)
+- [ ] Confirm dennis@makemovegrow.com mailbox exists (contact reveal email!) — flip char codes to hello@ if not
+- [ ] Real social URLs → flip SHOW_SOCIALS in Footer.tsx + contact/page.tsx
+- [ ] Live Action category page is empty (Founder Story unpublished) — publish with video or pause category
+- [ ] Academy Awards Governors Ball video (if separate from Emmys one)
+- [ ] Real live-action preview footage for work-page pill (still Adizero)
+- [ ] OG image; designed 404; Vimeo poster frames for slideshow
+- [ ] Restore Corporate & Government when ready (uncomment in content.ts)
+
+---
+
+## Previous State (July 21, pre-deploy): PARTIAL-LAUNCH BUILD READY — AWAITING DENNIS'S LOCALHOST OK TO DEPLOY
 
 Commit `bb9d5cf` on `if-redesign` (July 21) prepares a **partial public launch** (no full case studies yet):
 - `content.ts`: `published` flag — Summit Recap + Founder Story hidden (no video/TBD client) but kept as saved templates; `publishedCaseStudies` drives every grid/slide/related list; `isPlaceholder()` / `hasRealCredits()` helpers

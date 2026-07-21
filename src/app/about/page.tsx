@@ -83,18 +83,47 @@ export default function AboutPage() {
               >
                 Our Story
               </div>
-              {/* TODO: replace with Dennis's real story */}
               <p
-                className="text-muted m-0"
+                className="font-display text-ink m-0 max-w-[40ch]"
+                style={{
+                  fontWeight: 500,
+                  fontSize: "clamp(20px,2.8vw,30px)",
+                  lineHeight: 1.3,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                &ldquo;Growing up, my father filmed every birthday. He knew
+                we&rsquo;d want to relive those moments someday. That changed
+                my entire life &mdash; the realization that I could capture a
+                moment and preserve it as a time capsule for generations to
+                come.&rdquo;
+              </p>
+              <div
+                className="font-mono uppercase text-faint mt-[18px]"
+                style={{ fontSize: 11, letterSpacing: "0.16em" }}
+              >
+                Dennis Mulyar &mdash; Founder
+              </div>
+              <p
+                className="text-muted mt-[30px] mb-0"
                 style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
               >
-                [PLACEHOLDER] MMG started on real sets, not in a pitch deck —
-                fifteen years of call sheets, load-ins, and last-minute fixes
-                built the way we work today. We&rsquo;re a Los Angeles
-                production house that grew out of set discipline: show up
-                prepared, solve problems quietly, and deliver on time, every
-                time. Agencies and brands bring us the idea; we bring the
-                crew that makes it real.
+                MMG is led by Dennis Mulyar, a first-generation Ukrainian
+                American filmmaker with a Bachelor&rsquo;s in Film and fifteen
+                years on set across entertainment, beauty, and live events
+                &mdash; shooting for brands like Nike, Adidas, Paramount+, and
+                Snapchat, and for professional athletes across basketball,
+                football, and baseball.
+              </p>
+              <p
+                className="text-muted mt-[18px] mb-0"
+                style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
+              >
+                The instinct behind all of it hasn&rsquo;t changed since those
+                birthday tapes: a moment captured well outlasts the day it was
+                made. Dennis directs the craft and the crew &mdash; the
+                concept stays yours. Based in Los Angeles, on location
+                anywhere.
               </p>
             </div>
           </section>

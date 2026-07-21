@@ -11,6 +11,9 @@ export const metadata: Metadata = {
 const KICKER_CLASS = "font-mono uppercase text-faint mb-[14px]";
 const KICKER_STYLE = { fontSize: 11, letterSpacing: "0.16em" };
 
+// Flip to true once real social URLs replace the "#" hrefs below.
+const SHOW_SOCIALS = false;
+
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -104,6 +107,8 @@ export default function ContactPage() {
                   </p>
                 </div>
 
+                {/* Hidden until real social URLs replace the "#" hrefs. */}
+                {SHOW_SOCIALS && (
                 <div>
                   <div className={KICKER_CLASS} style={KICKER_STYLE}>
                     Follow
@@ -133,6 +138,7 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
+                )}
               </div>
 
             </Reveal>

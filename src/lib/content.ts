@@ -80,7 +80,18 @@ export type CaseStudy = {
   featured: boolean;
   span: number; // keep for homepage grid: 4 | 6 | 8
   ratio: "16/9" | "4/3" | "fill";
+  published: boolean; // false = hidden from all grids/slides and /project route 404s
 };
+
+// A field still holding template copy — hidden from render until replaced.
+export function isPlaceholder(text: string): boolean {
+  return text.startsWith("[PLACEHOLDER]");
+}
+
+// Credits render only once at least one real name replaces "TBD".
+export function hasRealCredits(credits: Credit[]): boolean {
+  return credits.some((c) => c.name !== "TBD");
+}
 
 export const categories: Category[] = [
   {
@@ -138,6 +149,7 @@ export const caseStudies: CaseStudy[] = [
     featured: true,
     span: 8,
     ratio: "16/9",
+    published: true,
   },
   {
     slug: "summit-recap",
@@ -159,6 +171,7 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 4,
     ratio: "fill",
+    published: false, // no video yet; publish with real footage + client
   },
   {
     slug: "calvin-klein-mycalvins",
@@ -180,6 +193,7 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 4,
     ratio: "fill",
+    published: true,
   },
   {
     slug: "adizero-lightest-cleat",
@@ -201,6 +215,7 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 8,
     ratio: "16/9",
+    published: true,
   },
   {
     slug: "augustinus-bader-the-body-knows",
@@ -222,6 +237,7 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 6,
     ratio: "4/3",
+    published: true,
   },
   {
     slug: "founder-story",
@@ -242,8 +258,13 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 6,
     ratio: "4/3",
+    published: false, // no video yet; publish with real footage + client
   },
 ];
+
+// Everything the public site renders derives from this list; unpublished
+// entries stay in `caseStudies` as saved templates.
+export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
@@ -252,14 +273,14 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 export function getCaseStudiesByCategory(
   slug: CategorySlug | "all"
 ): CaseStudy[] {
-  if (slug === "all") return caseStudies;
-  return caseStudies.filter((cs) => cs.categories.includes(slug));
+  if (slug === "all") return publishedCaseStudies;
+  return publishedCaseStudies.filter((cs) => cs.categories.includes(slug));
 }
 
 export function getRelated(cs: CaseStudy): CaseStudy[] {
   return cs.related
     .map((slug) => getCaseStudy(slug))
-    .filter((item): item is CaseStudy => Boolean(item));
+    .filter((item): item is CaseStudy => Boolean(item && item.published));
 }
 
 // Compatibility shim — Work.tsx imports `workTiles` from this module and
@@ -273,7 +294,7 @@ const categoryLabelBySlug: Record<CategorySlug, string> = {
   "live-action": "Live Action",
 };
 
-export const workTiles = caseStudies.map((cs) => ({
+export const workTiles = publishedCaseStudies.map((cs) => ({
   category: categoryLabelBySlug[cs.categories[0]],
   title: cs.title,
   bg: cs.bg,

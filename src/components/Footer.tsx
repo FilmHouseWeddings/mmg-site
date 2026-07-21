@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+// Flip to true once real social URLs replace the "#" hrefs below.
+const SHOW_SOCIALS = false;
+
 export default function Footer() {
   const navLinks = [
     { label: "what we do", href: "/work" },
@@ -35,15 +38,15 @@ export default function Footer() {
 
         {/* Row 2: mailto + socials */}
         <div className="flex justify-between items-center gap-6 flex-wrap">
-          {/* TODO: confirm info@ mailbox exists (Dennis) */}
           <a
-            href="mailto:info@makemovegrow.com"
+            href="mailto:hello@makemovegrow.com"
             className="font-display text-ink no-underline border-b border-transparent hover:text-accent hover:border-accent transition-[color,border-color] duration-[250ms]"
             style={{ fontSize: "clamp(18px,2vw,24px)", letterSpacing: "-0.01em" }}
           >
-            info@makemovegrow.com
+            hello@makemovegrow.com
           </a>
 
+          {SHOW_SOCIALS && (
           <div className="flex items-center gap-5">
             {/* TODO: real social URLs from Dennis */}
             <a
@@ -83,6 +86,7 @@ export default function Footer() {
               </svg>
             </a>
           </div>
+          )}
         </div>
 
         {/* Bottom line */}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { caseStudies } from "@/lib/content";
+import { publishedCaseStudies } from "@/lib/content";
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -60,7 +60,7 @@ function CursorArrow({ side }: { side: "left" | "right" }) {
 }
 
 export default function HeroSlideshow() {
-  const slides = caseStudies.filter((cs) => cs.heroVideo);
+  const slides = publishedCaseStudies.filter((cs) => cs.heroVideo);
 
   const [active, setActive] = useState(0);
   const [navCount, setNavCount] = useState(0);

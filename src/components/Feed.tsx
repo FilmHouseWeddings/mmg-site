@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { caseStudies, categories, type CaseStudy } from "@/lib/content";
+import { publishedCaseStudies, categories, type CaseStudy } from "@/lib/content";
 import Reveal from "./Reveal";
 
 function categoryLabel(cs: CaseStudy): string {
@@ -62,7 +62,7 @@ export default function Feed() {
   return (
     <section className="pt-20 md:pt-28 pb-20 md:pb-28">
       <div className="max-w-[1400px] mx-auto px-4 md:px-9 flex flex-col gap-14 lg:gap-24">
-        {caseStudies.map((cs, index) => {
+        {publishedCaseStudies.map((cs, index) => {
           const reversed = index % 2 === 1;
           return (
             <Link

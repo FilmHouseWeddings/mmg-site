@@ -2,14 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { caseStudies, getCaseStudy, getRelated } from "@/lib/content";
+import {
+  publishedCaseStudies,
+  getCaseStudy,
+  getRelated,
+  isPlaceholder,
+  hasRealCredits,
+} from "@/lib/content";
 import Reveal from "@/components/Reveal";
 import CaseVideo from "@/components/CaseVideo";
 import CreditsBlock from "@/components/CreditsBlock";
 import RelatedProjects from "@/components/RelatedProjects";
 
 export async function generateStaticParams() {
-  return caseStudies.map((cs) => ({ slug: cs.slug }));
+  return publishedCaseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
 export async function generateMetadata({
@@ -20,13 +26,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const cs = getCaseStudy(slug);
 
-  if (!cs) {
+  if (!cs || !cs.published) {
     return { title: "Project" };
   }
 
   return {
     title: cs.title,
-    description: cs.synopsis,
+    description: isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis,
   };
 }
 
@@ -38,7 +44,7 @@ export default async function ProjectPage({
   const { slug } = await params;
   const cs = getCaseStudy(slug);
 
-  if (!cs) notFound();
+  if (!cs || !cs.published) notFound();
 
   const related = getRelated(cs);
   const secondaryMedia = cs.media.slice(1);
@@ -78,22 +84,28 @@ export default async function ProjectPage({
           </div>
         </Reveal>
 
-        <Reveal delay={0.14}>
-          <p className="max-w-[680px] text-[19px] leading-[1.6] text-ink mt-8 md:mt-10">
-            {cs.synopsis}
-          </p>
-        </Reveal>
+        {/* Template sections below auto-appear once real copy replaces the
+            [PLACEHOLDER] strings / TBD credits in content.ts. */}
+        {!isPlaceholder(cs.synopsis) && (
+          <Reveal delay={0.14}>
+            <p className="max-w-[680px] text-[19px] leading-[1.6] text-ink mt-8 md:mt-10">
+              {cs.synopsis}
+            </p>
+          </Reveal>
+        )}
 
-        <Reveal delay={0.18}>
-          <div className="mt-10 md:mt-12">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent mb-3">
-              What We Did
-            </p>
-            <p className="max-w-[680px] text-[16px] leading-[1.7] text-muted">
-              {cs.whatWeDid}
-            </p>
-          </div>
-        </Reveal>
+        {!isPlaceholder(cs.whatWeDid) && (
+          <Reveal delay={0.18}>
+            <div className="mt-10 md:mt-12">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent mb-3">
+                What We Did
+              </p>
+              <p className="max-w-[680px] text-[16px] leading-[1.7] text-muted">
+                {cs.whatWeDid}
+              </p>
+            </div>
+          </Reveal>
+        )}
 
         {secondaryMedia.length > 0 && (
           <div className="mt-14 md:mt-20 flex flex-col gap-8 md:gap-12">
@@ -120,9 +132,11 @@ export default async function ProjectPage({
           </div>
         )}
 
-        <div className="mt-16 md:mt-24">
-          <CreditsBlock credits={cs.credits} />
-        </div>
+        {hasRealCredits(cs.credits) && (
+          <div className="mt-16 md:mt-24">
+            <CreditsBlock credits={cs.credits} />
+          </div>
+        )}
 
         <div className="mt-16 md:mt-24">
           <RelatedProjects items={related} />

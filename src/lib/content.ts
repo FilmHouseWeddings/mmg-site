@@ -106,12 +106,14 @@ export const categories: Category[] = [
     blurb:
       "Conferences, galas, and launches, captured multi camera and cut for maximum impact.",
   },
-  {
-    slug: "corporate-government",
-    label: "Corporate & Government",
-    blurb:
-      "Summits, conferences, and official proceedings, filmed and delivered with discretion.",
-  },
+  // Corporate & Government category paused for launch (July 2026) — restore
+  // this entry to bring back the tab, its /work page, and its pill.
+  // {
+  //   slug: "corporate-government",
+  //   label: "Corporate & Government",
+  //   blurb:
+  //     "Summits, conferences, and official proceedings, filmed and delivered with discretion.",
+  // },
   {
     slug: "live-action",
     label: "Live Action",
@@ -155,9 +157,9 @@ export const caseStudies: CaseStudy[] = [
     slug: "summit-recap",
     title: "Summit Recap",
     client: "TBD", // TODO: replace placeholder content
-    roleLine: "Corporate & government coverage for Summit",
-    // [PLACEHOLDER] categorization — Dennis to confirm
-    categories: ["corporate-government"],
+    roleLine: "Event coverage for Summit",
+    // moved from corporate-government when that category was paused (July 2026)
+    categories: ["event-coverage"],
     // TODO: replace placeholder content
     synopsis:
       "[PLACEHOLDER] A multi day corporate summit needed same day recap coverage to capture keynotes, breakout sessions, and the overall energy of the proceedings for both attendees and official distribution.",
@@ -237,6 +239,50 @@ export const caseStudies: CaseStudy[] = [
     featured: false,
     span: 6,
     ratio: "4/3",
+    published: true,
+  },
+  {
+    slug: "emmys-governors-ball",
+    title: "Emmys Governors Ball",
+    client: "Sequoia Productions", // TODO: confirm client attribution
+    roleLine: "Event coverage for the Emmys Governors Ball",
+    categories: ["event-coverage"],
+    // TODO: replace placeholder content
+    synopsis:
+      "[PLACEHOLDER] The Television Academy's Governors Ball needed coverage that matched the scale of the night, capturing the room, the guests, and the production design of television's biggest afterparty.",
+    // TODO: replace placeholder content
+    whatWeDid:
+      "[PLACEHOLDER] MMG covered the event end to end, moving through the room without interrupting it, and delivered a polished recap built for both the producing team and press distribution.",
+    heroVideo: { vimeoId: "984611824", vimeoHash: "5612e9a8af" },
+    bg: "linear-gradient(155deg,#241f14,#0f0d09)",
+    media: [{ type: "vimeo", vimeoId: "984611824", vimeoHash: "5612e9a8af" }],
+    credits: placeholderCredits,
+    related: ["city-of-lancaster-commercial", "crave-4orce-goldberg", "adizero-lightest-cleat"],
+    featured: false,
+    span: 6,
+    ratio: "16/9",
+    published: true,
+  },
+  {
+    slug: "city-of-lancaster-commercial",
+    title: "City of Lancaster | Commercial",
+    client: "City of Lancaster",
+    roleLine: "Commercial for the City of Lancaster",
+    categories: ["branded"],
+    // TODO: replace placeholder content
+    synopsis:
+      "[PLACEHOLDER] The City of Lancaster wanted a commercial that repositioned the city itself as a destination, built to run across broadcast and digital.",
+    // TODO: replace placeholder content
+    whatWeDid:
+      "[PLACEHOLDER] MMG produced and finished the spot on location across Lancaster, delivering a commercial that sells the city with cinematic scale.",
+    heroVideo: { vimeoId: "1164850396", vimeoHash: "7650225ac3" },
+    bg: "linear-gradient(155deg,#141a22,#0b0d11)",
+    media: [{ type: "vimeo", vimeoId: "1164850396", vimeoHash: "7650225ac3" }],
+    credits: placeholderCredits,
+    related: ["crave-4orce-goldberg", "emmys-governors-ball", "augustinus-bader-the-body-knows"],
+    featured: false,
+    span: 6,
+    ratio: "16/9",
     published: true,
   },
   {

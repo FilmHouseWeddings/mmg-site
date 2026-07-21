@@ -64,11 +64,14 @@ export default function CaseVideo({
       style={{ background: bg }}
     >
       {vimeoId && inView ? (
+        // Full player with controls — background=1 would strip the play button.
         <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?h=${vimeoHash ?? ""}&badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1`}
+          src={`https://player.vimeo.com/video/${vimeoId}?h=${vimeoHash ?? ""}&title=0&byline=0&portrait=0&badge=0&autopause=0`}
           loading="lazy"
           frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
           className="absolute inset-0 h-full w-full"
         />
       ) : vimeoId ? (

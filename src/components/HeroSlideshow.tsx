@@ -329,7 +329,11 @@ export default function HeroSlideshow() {
                 : "opacity 0.6s ease",
             }}
           >
-            Ideas deserve <span className="text-accent">execution.</span>
+            {/* Single child span: the h1 is flex, which would otherwise
+                collapse the space between the text and the accent span. */}
+            <span>
+              Ideas deserve <span className="text-accent">execution.</span>
+            </span>
           </h1>
         )}
       </div>

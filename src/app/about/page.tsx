@@ -7,7 +7,7 @@ import TrustedBy from "@/components/TrustedBy";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MMG is a Los Angeles production house that executes other people's ideas — brand films, corporate events, live broadcast, and photography, delivered with fifteen years of set discipline.",
+    "MMG is a Los Angeles production house that executes other people's ideas: brand films, corporate events, live broadcast, and photography, delivered with fifteen years of set discipline.",
 };
 
 export default function AboutPage() {
@@ -44,37 +44,8 @@ export default function AboutPage() {
         {/* Hairline rule */}
         <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
 
-        {/* Stance */}
-        <Reveal delay={0.1}>
-          <section className="pt-[60px] pb-[10px]">
-            <div className="max-w-[1200px] mx-auto px-5 md:px-9">
-              <p
-                className="font-display text-ink m-0 max-w-[26ch]"
-                style={{
-                  fontWeight: 500,
-                  fontSize: "clamp(26px,4vw,42px)",
-                  lineHeight: 1.16,
-                  letterSpacing: "-0.015em",
-                }}
-              >
-                We are not a creative agency. We don&rsquo;t pitch concepts
-                and we don&rsquo;t want the credit. You bring the idea. We
-                bring the crew, the cameras, and fifteen years of making it
-                look like it was never hard.
-              </p>
-              <div
-                className="font-mono text-muted mt-[26px] max-w-[52ch]"
-                style={{ fontSize: 12, letterSpacing: "0.02em", lineHeight: 1.7 }}
-              >
-                Your client stays your client. Your idea stays your idea. We
-                execute, we deliver, we step back.
-              </div>
-            </div>
-          </section>
-        </Reveal>
-
         {/* Story */}
-        <Reveal delay={0.14}>
+        <Reveal delay={0.1}>
           <section className="pt-[54px] pb-[10px]">
             <div className="max-w-[1200px] mx-auto px-5 md:px-9">
               <div
@@ -84,7 +55,7 @@ export default function AboutPage() {
                 Our Story
               </div>
               <p
-                className="font-display text-ink m-0 max-w-[40ch]"
+                className="font-display text-ink m-0 max-w-[44ch]"
                 style={{
                   fontWeight: 500,
                   fontSize: "clamp(20px,2.8vw,30px)",
@@ -92,38 +63,29 @@ export default function AboutPage() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                &ldquo;Growing up, my father filmed every birthday. He knew
-                we&rsquo;d want to relive those moments someday. That changed
-                my entire life &mdash; the realization that I could capture a
-                moment and preserve it as a time capsule for generations to
-                come.&rdquo;
+                MMG exists because of a home video. Dennis&rsquo; father
+                filmed every birthday. Not for likes, for later.
+                Those tapes taught Dennis early that a camera, pointed with
+                intent, turns a moment into something a family keeps forever.
               </p>
-              <div
-                className="font-mono uppercase text-faint mt-[18px]"
-                style={{ fontSize: 11, letterSpacing: "0.16em" }}
-              >
-                Dennis Mulyar &mdash; Founder
-              </div>
               <p
                 className="text-muted mt-[30px] mb-0"
                 style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
               >
-                MMG is led by Dennis Mulyar, a first-generation Ukrainian
-                American filmmaker with a Bachelor&rsquo;s in Film and fifteen
-                years on set across entertainment, beauty, and live events
-                &mdash; shooting for brands like Nike, Adidas, Paramount+, and
-                Snapchat, and for professional athletes across basketball,
-                football, and baseball.
+                Fifteen years on set turned that instinct into a discipline.
+                A first-generation Ukrainian American filmmaker with a
+                Bachelor&rsquo;s in Film, Dennis Mulyar has shot across
+                entertainment, beauty, and live events for Nike, Adidas,
+                Paramount+, and Snapchat, and for professional athletes
+                across basketball, football, and baseball.
               </p>
               <p
                 className="text-muted mt-[18px] mb-0"
                 style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
               >
-                The instinct behind all of it hasn&rsquo;t changed since those
-                birthday tapes: a moment captured well outlasts the day it was
-                made. Dennis directs the craft and the crew &mdash; the
-                concept stays yours. Based in Los Angeles, on location
-                anywhere.
+                Today he leads MMG from Los Angeles, directing the craft and
+                the crew while the concept stays yours. The brief changes.
+                The standard doesn&rsquo;t.
               </p>
             </div>
           </section>

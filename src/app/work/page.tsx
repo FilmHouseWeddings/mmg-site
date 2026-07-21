@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   title: "What We Do",
 };
 
-// [PLACEHOLDER] temporary preview assignments — replace with real category footage
+// Preview footage per category pill. live-action is still cross-assigned
+// ([PLACEHOLDER]) — replace with real live-action footage when available.
 const PREVIEW_OVERRIDES: Record<string, string> = {
   branded: "crave-4orce-goldberg",
-  "event-coverage": "calvin-klein-mycalvins",
-  "corporate-government": "augustinus-bader-the-body-knows",
+  "event-coverage": "emmys-governors-ball",
   "live-action": "adizero-lightest-cleat",
 };
 

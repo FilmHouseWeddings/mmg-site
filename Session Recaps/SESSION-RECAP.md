@@ -1,7 +1,25 @@
 # MMG Site — Session Recap
-Last updated: July 8, 2026
+Last updated: July 21, 2026
 
-## Current State: ITERATION 2.1 ON LOCAL BRANCH — NOT DEPLOYED
+## Current State: PARTIAL-LAUNCH BUILD READY — AWAITING DENNIS'S LOCALHOST OK TO DEPLOY
+
+Commit `bb9d5cf` on `if-redesign` (July 21) prepares a **partial public launch** (no full case studies yet):
+- `content.ts`: `published` flag — Summit Recap + Founder Story hidden (no video/TBD client) but kept as saved templates; `publishedCaseStudies` drives every grid/slide/related list; `isPlaceholder()` / `hasRealCredits()` helpers
+- `/project/[slug]`: unpublished → 404; synopsis / What We Did / credits sections auto-hide while placeholder and **reappear automatically** once real copy replaces the `[PLACEHOLDER]` strings / TBD names in content.ts — templates fully preserved in code
+- About: real founder story (adapted from filmhouseweddings.com/about — father/birthday quote, Dennis Mulyar bio, MMG execution positioning)
+- Footer + contact: social icons hidden behind `SHOW_SOCIALS = false` (flip + add real URLs later); footer email now hello@makemovegrow.com
+- New `sitemap.ts` + `robots.ts`
+- QA July 21: build clean; no [PLACEHOLDER]/TBD rendered anywhere; hidden projects 404; no links to them; no 390px overflow; zero console errors; reveal email still absent from served HTML
+- NOTE: Corporate & Government and Live Action category pages show "No projects in this category yet." (their only projects are the two hidden ones) — auto-heals when those publish
+- Contact click-to-reveal is still dennis@makemovegrow.com — **mailbox unconfirmed**; flip char codes to hello@ if it doesn't exist
+- **Deploy = merge if-redesign → main + push (Vercel auto-deploys). Waiting on Dennis's explicit OK after localhost review.**
+
+### Dev-serving workaround (July 21)
+Google Drive evicted node_modules from local cache — dev server wouldn't boot from the Drive path. Serving now runs from a **local SSD copy** (session scratchpad, ephemeral): copy src → `npm install` → `npm run dev` there. **Drive repo stays source of truth**; edit local, rsync back, commit in Drive repo. Dennis drops photos/files in `Source Files/mmg/public/` (or anywhere in MMG Site + tell Claude). Fix for next time: Drive → "Make available offline" on the mmg folder.
+
+---
+
+## Previous State (July 8): ITERATION 2.3 ON LOCAL BRANCH — NOT DEPLOYED
 
 Redesign commits on local branch **`if-redesign`**:
 - `7ffc402` — Iteration 1: IF-style IA (work/category/case-study routes, mobile drawer, positioning)

@@ -19,13 +19,28 @@ function PlayGlyph() {
   );
 }
 
-export default function ProjectCard({ cs }: { cs: CaseStudy }) {
+export default function ProjectCard({
+  cs,
+  thumbnailUrl,
+}: {
+  cs: CaseStudy;
+  thumbnailUrl?: string | null;
+}) {
   return (
     <Link href={`/project/${cs.slug}`} className="group block no-underline">
       <div
         className="relative aspect-video overflow-hidden"
         style={{ background: cs.bg }}
       >
+        {thumbnailUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={thumbnailUrl}
+            alt={cs.title}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            loading="lazy"
+          />
+        )}
         <PlayGlyph />
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

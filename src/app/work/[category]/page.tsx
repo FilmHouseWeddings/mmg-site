@@ -10,6 +10,7 @@ import {
   getCaseStudiesByCategory,
   type CategorySlug,
 } from "@/lib/content";
+import { getThumbnailsBySlug } from "@/lib/vimeo";
 
 export async function generateStaticParams() {
   return categories.map((cat) => ({ category: cat.slug }));
@@ -40,6 +41,7 @@ export default async function WorkCategoryPage({
   if (!cat) notFound();
 
   const projects = getCaseStudiesByCategory(cat.slug as CategorySlug);
+  const thumbnails = await getThumbnailsBySlug(projects);
 
   return (
     <>
@@ -93,7 +95,7 @@ export default async function WorkCategoryPage({
               <div className="grid grid-cols-1 gap-x-8 gap-y-[52px] md:grid-cols-2">
                 {projects.map((cs, i) => (
                   <Reveal key={cs.slug} delay={i * 0.06}>
-                    <ProjectCard cs={cs} />
+                    <ProjectCard cs={cs} thumbnailUrl={thumbnails[cs.slug]} />
                   </Reveal>
                 ))}
               </div>

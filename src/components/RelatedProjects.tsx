@@ -4,9 +4,10 @@ import Reveal from "./Reveal";
 
 interface RelatedProjectsProps {
   items: CaseStudy[];
+  thumbnails?: Record<string, string | null>;
 }
 
-export default function RelatedProjects({ items }: RelatedProjectsProps) {
+export default function RelatedProjects({ items, thumbnails }: RelatedProjectsProps) {
   if (!items.length) return null;
 
   return (
@@ -23,7 +24,17 @@ export default function RelatedProjects({ items }: RelatedProjectsProps) {
               <div
                 className="relative aspect-video w-full overflow-hidden mb-3 transition-transform duration-300 group-hover:-translate-y-1"
                 style={{ background: item.bg }}
-              />
+              >
+                {thumbnails?.[item.slug] && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={thumbnails[item.slug]!}
+                    alt={item.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                )}
+              </div>
               <h3 className="font-display font-semibold text-[17px] text-ink leading-snug transition-colors duration-200 group-hover:text-accent">
                 {item.title}
               </h3>

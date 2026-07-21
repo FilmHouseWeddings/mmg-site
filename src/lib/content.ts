@@ -312,6 +312,24 @@ export const caseStudies: CaseStudy[] = [
 // entries stay in `caseStudies` as saved templates.
 export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 
+// Homepage feed order (top to bottom) — edit this list to re-order the feed.
+// Published projects missing from the list are appended at the end.
+const FEED_ORDER = [
+  "emmys-governors-ball",
+  "calvin-klein-mycalvins",
+  "adizero-lightest-cleat",
+  "crave-4orce-goldberg",
+  "augustinus-bader-the-body-knows",
+  "city-of-lancaster-commercial",
+];
+
+export const feedCaseStudies: CaseStudy[] = [
+  ...FEED_ORDER.map((slug) => getCaseStudy(slug)).filter(
+    (cs): cs is CaseStudy => Boolean(cs && cs.published)
+  ),
+  ...publishedCaseStudies.filter((cs) => !FEED_ORDER.includes(cs.slug)),
+];
+
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((cs) => cs.slug === slug);
 }

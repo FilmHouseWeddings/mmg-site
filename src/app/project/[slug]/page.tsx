@@ -13,6 +13,7 @@ import Reveal from "@/components/Reveal";
 import CaseVideo from "@/components/CaseVideo";
 import CreditsBlock from "@/components/CreditsBlock";
 import RelatedProjects from "@/components/RelatedProjects";
+import { getThumbnailsBySlug } from "@/lib/vimeo";
 
 export async function generateStaticParams() {
   return publishedCaseStudies.map((cs) => ({ slug: cs.slug }));
@@ -47,6 +48,7 @@ export default async function ProjectPage({
   if (!cs || !cs.published) notFound();
 
   const related = getRelated(cs);
+  const relatedThumbnails = await getThumbnailsBySlug(related);
   const secondaryMedia = cs.media.slice(1);
 
   return (
@@ -139,7 +141,7 @@ export default async function ProjectPage({
         )}
 
         <div className="mt-16 md:mt-24">
-          <RelatedProjects items={related} />
+          <RelatedProjects items={related} thumbnails={relatedThumbnails} />
         </div>
       </div>
     </main>

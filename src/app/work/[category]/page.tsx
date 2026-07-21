@@ -88,9 +88,25 @@ export default async function WorkCategoryPage({
         <section className="pt-[54px] pb-[110px]">
           <div className="max-w-[1200px] mx-auto px-5 md:px-9">
             {projects.length === 0 ? (
-              <p className="text-muted" style={{ fontSize: 16 }}>
-                No projects in this category yet.
-              </p>
+              <div>
+                <p
+                  className="font-display font-semibold m-0 text-ink"
+                  style={{
+                    fontSize: "clamp(30px,4.5vw,48px)",
+                    lineHeight: 1.05,
+                    letterSpacing: "-0.015em",
+                  }}
+                >
+                  Coming <span className="text-accent">soon.</span>
+                </p>
+                <p
+                  className="text-muted mt-5 mb-0"
+                  style={{ fontSize: 16, lineHeight: 1.7, maxWidth: "48ch" }}
+                >
+                  This reel is in the edit. In the meantime, explore the rest
+                  of the work above.
+                </p>
+              </div>
             ) : (
               <div className="grid grid-cols-1 gap-x-8 gap-y-[52px] md:grid-cols-2">
                 {projects.map((cs, i) => (

@@ -2,7 +2,7 @@ import Reveal from "@/components/Reveal";
 
 export default function BrandStatement() {
   return (
-    <section className="py-[72px] lg:py-[140px]">
+    <section className="pt-[72px] lg:pt-[140px] pb-0">
       <div className="max-w-[1200px] mx-auto px-5 md:px-9">
         <Reveal delay={0}>
           <p className="font-mono text-accent text-[11px] uppercase tracking-[0.22em] mb-6">

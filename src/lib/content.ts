@@ -1,4 +1,5 @@
 export const clients = [
+  "Anthropic",
   "Paramount+",
   "Nike",
   "Adidas",

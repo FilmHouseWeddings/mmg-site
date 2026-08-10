@@ -7,7 +7,7 @@ import TrustedBy from "@/components/TrustedBy";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MMG is a Los Angeles production house that executes other people's ideas: brand films, corporate events, live broadcast, and photography, delivered with fifteen years of set discipline.",
+    "MMG is a Los Angeles production house built for brands, agencies, and institutions: brand films, corporate events, live broadcast, and photography, executed at the highest standard. The concept stays yours.",
 };
 
 export default function AboutPage() {
@@ -63,29 +63,23 @@ export default function AboutPage() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                MMG exists because of a home video. Dennis&rsquo; father
-                filmed every birthday. Not for likes, for later.
-                Those tapes taught Dennis early that a camera, pointed with
-                intent, turns a moment into something a family keeps forever.
+                MMG exists because executing an idea shouldn&rsquo;t be
+                complicated. We take the concept, handle everything it takes
+                to bring it to life, and deliver it to the highest standard,
+                because our goal is your growth. Every piece of content
+                should elevate your brand, so more people see your story and
+                hear your message.
               </p>
               <p
                 className="text-muted mt-[30px] mb-0"
                 style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
               >
-                Fifteen years on set turned that instinct into a discipline.
-                A first-generation Ukrainian American filmmaker with a
-                Bachelor&rsquo;s in Film, Dennis Mulyar has shot across
-                entertainment, beauty, and live events for Nike, Adidas,
-                Paramount+, and Snapchat, and for professional athletes
-                across basketball, football, and baseball.
-              </p>
-              <p
-                className="text-muted mt-[18px] mb-0"
-                style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
-              >
-                Today he leads MMG from Los Angeles, directing the craft and
-                the crew while the concept stays yours. The brief changes.
-                The standard doesn&rsquo;t.
+                MMG is a Los Angeles production house built for brands,
+                agencies, and institutions that need their story executed at
+                the highest level. The team has shot for Nike, Adidas,
+                Paramount+, Snapchat, Augustinus Bader, Anastasia Beverly
+                Hills, and Sequoia Productions. The concept stays yours. The
+                execution is ours.
               </p>
             </div>
           </section>

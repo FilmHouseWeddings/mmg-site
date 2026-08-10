@@ -41,7 +41,7 @@ const pillars: Pillar[] = [
   {
     heading: "content creation",
     sentence:
-      "Cinematic, whatever the brief — filmed, cut, and delivered ready to run.",
+      "We handle the whole thing, filming, editing, and delivery, so you get a finished video ready to post or play.",
     categorySlugs: categories.map((cat) => cat.slug),
   },
 ];

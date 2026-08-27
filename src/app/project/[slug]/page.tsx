@@ -12,6 +12,7 @@ import {
 import Reveal from "@/components/Reveal";
 import CaseVideo from "@/components/CaseVideo";
 import CreditsBlock from "@/components/CreditsBlock";
+import PhotoCollage from "@/components/PhotoCollage";
 import RelatedProjects from "@/components/RelatedProjects";
 import { getThumbnailsBySlug } from "@/lib/vimeo";
 
@@ -105,6 +106,17 @@ export default async function ProjectPage({
               <p className="max-w-[680px] text-[16px] leading-[1.7] text-muted">
                 {cs.whatWeDid}
               </p>
+            </div>
+          </Reveal>
+        )}
+
+        {cs.photos && cs.photos.length > 0 && (
+          <Reveal delay={0.22}>
+            <div className="mt-14 md:mt-20">
+              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent mb-5">
+                {cs.photosLabel ?? "Photography"}
+              </p>
+              <PhotoCollage photos={cs.photos} />
             </div>
           </Reveal>
         )}

@@ -57,6 +57,10 @@ export type MediaItem =
 
 export type Credit = { role: string; name: string };
 
+// Stills shown in the collage under a case study's film. Intrinsic w/h are
+// required so the grid reserves space and nothing has to be cropped.
+export type Photo = { src: string; alt: string; w: number; h: number };
+
 export type CategorySlug =
   | "branded"
   | "event-coverage"
@@ -76,6 +80,8 @@ export type CaseStudy = {
   heroVideo?: { vimeoId: string; vimeoHash?: string };
   bg: string; // gradient fallback for cards without video
   media: MediaItem[];
+  photos?: Photo[]; // optional stills collage, rendered beneath the film
+  photosLabel?: string; // kicker above the collage; defaults to "Photography"
   credits: Credit[];
   related: string[]; // exactly 3 slugs
   featured: boolean;
@@ -129,6 +135,107 @@ const placeholderCredits: Credit[] = [
   { role: "Editor", name: "TBD" },
   { role: "Producer", name: "TBD" },
   { role: "Colorist", name: "TBD" },
+];
+
+// Campaign stills, split out of the Augustinus Bader photo deck. Ordered for
+// visual rhythm rather than by source file — editorial and product alternate
+// so the collage doesn't read as two separate blocks.
+const augustinusBaderPhotos: Photo[] = [
+  { src: "/photos/augustinus-bader/ab-moss-portrait.webp", w: 2000, h: 1493,
+    alt: "Silver-haired model seated on volcanic moss beneath open highland sky" },
+  { src: "/photos/augustinus-bader/ab-cream-prism.webp", w: 1335, h: 1013,
+    alt: "The Cream bottle and copper cap under hard light with a prism flare" },
+  { src: "/photos/augustinus-bader/ab-portrait-wind.webp", w: 1367, h: 2000,
+    alt: "Model on a grass hillside, hair caught across her face in the wind" },
+  { src: "/photos/augustinus-bader/ab-duo-on-black.webp", w: 1337, h: 2000,
+    alt: "The Cream and The Rich Cream on black, reflected in polished stone" },
+  { src: "/photos/augustinus-bader/ab-highland.webp", w: 2000, h: 1496,
+    alt: "Model in a white dress seated on rock in an Icelandic highland valley" },
+  { src: "/photos/augustinus-bader/ab-cream-and-rich-cream.webp", w: 1506, h: 2000,
+    alt: "The Cream and The Rich Cream side by side against a soft grey field" },
+  { src: "/photos/augustinus-bader/ab-portrait-curls.webp", w: 1416, h: 2000,
+    alt: "Beauty portrait of a model with a full natural afro, shoulders bare" },
+  { src: "/photos/augustinus-bader/ab-marble-duo.webp", w: 1335, h: 1289,
+    alt: "Two bottles and a loose cap on marble under palm-frond shadow" },
+  { src: "/photos/augustinus-bader/ab-portrait-freckles.webp", w: 1255, h: 2000,
+    alt: "Close portrait of a freckled model with a hand at the collarbone" },
+  { src: "/photos/augustinus-bader/ab-box-with-bottles.webp", w: 1500, h: 2000,
+    alt: "Linen presentation box with both bottles standing in front of it" },
+  { src: "/photos/augustinus-bader/ab-portrait-shoulder.webp", w: 1313, h: 2000,
+    alt: "Model glancing back over a bare shoulder against dark rock" },
+  { src: "/photos/augustinus-bader/ab-bottle-cap-swatch.webp", w: 2000, h: 1497,
+    alt: "The Cream laid flat beside its copper cap and a swatch of product" },
+  { src: "/photos/augustinus-bader/ab-bottle-long-shadow.webp", w: 1529, h: 1213,
+    alt: "Single bottle casting a long shadow across a lit grey surface" },
+  { src: "/photos/augustinus-bader/ab-box-front.webp", w: 1333, h: 2000,
+    alt: "Linen presentation box, copper monogram centred on the cover" },
+  { src: "/photos/augustinus-bader/ab-rich-cream-macro.webp", w: 1529, h: 1036,
+    alt: "Macro detail of The Rich Cream bottle, copper collar and monogram" },
+  { src: "/photos/augustinus-bader/ab-slipcase.webp", w: 1320, h: 2000,
+    alt: "Slipcase standing edge-on, copper spine catching the light" },
+  { src: "/photos/augustinus-bader/ab-carton-front.webp", w: 1337, h: 2000,
+    alt: "The Cream carton, front face with copper foil band" },
+  { src: "/photos/augustinus-bader/ab-carton-angled.webp", w: 1154, h: 2000,
+    alt: "The Cream carton angled to show the concentric copper line work" },
+  { src: "/photos/augustinus-bader/ab-carton-back.webp", w: 1337, h: 2000,
+    alt: "Reverse of The Cream carton showing full product copy" },
+];
+
+// Behind-the-scenes stills from the Adizero shoot, curated down from 58 camera
+// originals: near-black frames, soft frames and repeated takes were dropped.
+const adizeroPhotos: Photo[] = [
+  { src: "/photos/adizero/adz-director-field-night.webp", w: 1200, h: 1800,
+    alt: "Director walking the field between setups under stadium lights" },
+  { src: "/photos/adizero/adz-jib-track.webp", w: 1200, h: 1800,
+    alt: "Crew running a jib rig along the running track at night" },
+  { src: "/photos/adizero/adz-athlete-throw-night.webp", w: 1200, h: 1800,
+    alt: "Athlete throwing under the lights on the darkened field" },
+  { src: "/photos/adizero/adz-operator-cart.webp", w: 1200, h: 1800,
+    alt: "Operator prepping the camera on a dolly cart" },
+  { src: "/photos/adizero/adz-huddle.webp", w: 1200, h: 1800,
+    alt: "Athletes and crew regrouping between takes" },
+  { src: "/photos/adizero/adz-operator-vest.webp", w: 1200, h: 1800,
+    alt: "Camera operator rigged into a stabiliser vest" },
+  { src: "/photos/adizero/adz-two-athletes.webp", w: 1200, h: 1800,
+    alt: "Two athletes talking mid-field during a reset" },
+  { src: "/photos/adizero/adz-rig-bleachers.webp", w: 1800, h: 1200,
+    alt: "Operator working a gimbal rig in front of the bleachers" },
+  { src: "/photos/adizero/adz-athlete-ball.webp", w: 1200, h: 1800,
+    alt: "Athlete holding the ball, waiting on the next take" },
+  { src: "/photos/adizero/adz-crew-build.webp", w: 1200, h: 1800,
+    alt: "Crew building the camera rig on the sideline" },
+  { src: "/photos/adizero/adz-lone-operator.webp", w: 1200, h: 1800,
+    alt: "Lone operator crossing the field beneath the goalposts" },
+  { src: "/photos/adizero/adz-crew-athletes-night.webp", w: 1200, h: 1800,
+    alt: "Crew and athletes between setups on the night shoot" },
+  { src: "/photos/adizero/adz-director-portrait.webp", w: 1200, h: 1800,
+    alt: "Director on the track in daylight" },
+  { src: "/photos/adizero/adz-gimbal-day.webp", w: 1200, h: 1800,
+    alt: "Operator carrying a gimbal rig along the track" },
+  { src: "/photos/adizero/adz-athlete-rest.webp", w: 1200, h: 1800,
+    alt: "Athlete resting against the goalpost padding between takes" },
+  { src: "/photos/adizero/adz-director-points.webp", w: 1200, h: 1800,
+    alt: "Director framing up a shot with the camera team" },
+  { src: "/photos/adizero/adz-ronin.webp", w: 1200, h: 1800,
+    alt: "Operator running a Ronin rig on the sideline" },
+  { src: "/photos/adizero/adz-backlit-walk.webp", w: 1200, h: 1800,
+    alt: "Crew walking back to set, backlit by low sun" },
+  { src: "/photos/adizero/adz-jib-bench.webp", w: 1800, h: 1200,
+    alt: "Jib arm swung out over the team bench" },
+  { src: "/photos/adizero/adz-crew-line.webp", w: 1200, h: 1800,
+    alt: "Crew lined along the track watching a take" },
+  { src: "/photos/adizero/adz-director-laughing.webp", w: 1200, h: 1800,
+    alt: "Director laughing between setups, kit in hand" },
+  { src: "/photos/adizero/adz-wide-hills.webp", w: 1800, h: 1200,
+    alt: "Wide of the unit working the field with hills behind" },
+  { src: "/photos/adizero/adz-drone.webp", w: 1200, h: 1800,
+    alt: "Drone on the track ready to launch for an aerial pass" },
+  { src: "/photos/adizero/adz-athlete-throw-day.webp", w: 1200, h: 1800,
+    alt: "Athlete throwing in daylight as the drone tracks him" },
+  { src: "/photos/adizero/adz-athlete-bench.webp", w: 1200, h: 1800,
+    alt: "Athlete lacing up on the bench before a take" },
+  { src: "/photos/adizero/adz-op-filming-athletes.webp", w: 1200, h: 1800,
+    alt: "Operator filming two athletes running the play" },
 ];
 
 export const caseStudies: CaseStudy[] = [
@@ -213,6 +320,8 @@ export const caseStudies: CaseStudy[] = [
     heroVideo: { vimeoId: "1164850287", vimeoHash: "3e401aa088" },
     bg: "linear-gradient(155deg,#1d1d25,#0e0e12)",
     media: [{ type: "vimeo", vimeoId: "1164850287", vimeoHash: "3e401aa088" }],
+    photos: adizeroPhotos,
+    photosLabel: "Behind the Scenes",
     credits: placeholderCredits,
     related: ["crave-4orce-goldberg", "calvin-klein-mycalvins", "augustinus-bader-the-body-knows"],
     featured: false,
@@ -235,6 +344,7 @@ export const caseStudies: CaseStudy[] = [
     heroVideo: { vimeoId: "984611582", vimeoHash: "75645fab28" },
     bg: "linear-gradient(155deg,#211e18,#100f0c)",
     media: [{ type: "vimeo", vimeoId: "984611582", vimeoHash: "75645fab28" }],
+    photos: augustinusBaderPhotos,
     credits: placeholderCredits,
     related: ["crave-4orce-goldberg", "adizero-lightest-cleat", "calvin-klein-mycalvins"],
     featured: false,

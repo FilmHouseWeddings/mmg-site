@@ -7,8 +7,15 @@ import TrustedBy from "@/components/TrustedBy";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "MMG is a Los Angeles production house built for brands, agencies, and institutions: brand films, corporate events, live broadcast, and photography, executed at the highest standard. The concept stays yours.",
+    "Fifteen years of production experience. MMG is a Los Angeles production house built for brands, agencies, and institutions: brand films, corporate events, live broadcast, and photography, executed at the highest standard. The concept stays yours.",
 };
+
+// Experience and working range surfaced under the About headline. These describe
+// craft tenure and reach — deliberately not a company founding date.
+const STATS: { value: string; label: string }[] = [
+  { value: "15 years", label: "Of experience" },
+  { value: "Worldwide", label: "Nationwide and on location" },
+];
 
 export default function AboutPage() {
   return (
@@ -37,6 +44,31 @@ export default function AboutPage() {
               >
                 We execute ideas.
               </h1>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 mt-[46px] max-w-[640px]">
+                {STATS.map((stat) => (
+                  <div key={stat.label}>
+                    <div
+                      className="font-display font-semibold text-ink"
+                      style={{
+                        fontSize: "clamp(28px,4vw,44px)",
+                        lineHeight: 1.05,
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      {stat.value}
+                    </div>
+                    <div
+                      className="font-mono uppercase text-faint mt-[10px]"
+                      style={{ fontSize: 11, letterSpacing: "0.16em" }}
+                    >
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </Reveal>
           </div>
         </section>
@@ -74,9 +106,10 @@ export default function AboutPage() {
                 className="text-muted mt-[30px] mb-0"
                 style={{ fontSize: 17, lineHeight: 1.7, maxWidth: "62ch" }}
               >
-                MMG is a Los Angeles production house built for brands,
-                agencies, and institutions that need their story executed at
-                the highest level. The team has shot for Nike, Adidas,
+                Led by fifteen years of production experience, MMG is a Los
+                Angeles production house built for brands, agencies, and
+                institutions that need their story executed at the highest
+                level. The team has shot for Nike, Adidas,
                 Paramount+, Snapchat, Augustinus Bader, Anastasia Beverly
                 Hills, and Sequoia Productions. The concept stays yours. The
                 execution is ours.

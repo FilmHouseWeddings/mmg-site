@@ -13,7 +13,7 @@ export default function TrustedBy() {
             className="font-mono uppercase text-faint mb-[30px]"
             style={{ fontSize: 11, letterSpacing: "0.2em" }}
           >
-            We&apos;ve served
+            15 years &middot; We&apos;ve served
           </div>
         </Reveal>
       </div>

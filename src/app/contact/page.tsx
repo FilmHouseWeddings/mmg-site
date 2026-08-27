@@ -55,7 +55,7 @@ export default function ContactPage() {
                     className="font-mono uppercase text-muted mt-2 mb-0"
                     style={{ fontSize: 12, letterSpacing: "0.12em" }}
                   >
-                    Managing Director
+                    Managing Director &middot; 15 years in production
                   </p>
                 </div>
                 <div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                     Los Angeles
                   </p>
                   <p className="text-muted m-0" style={{ fontSize: 16 }}>
-                    Working nationwide and on location
+                    Working nationwide and worldwide, on location
                   </p>
                 </div>
 

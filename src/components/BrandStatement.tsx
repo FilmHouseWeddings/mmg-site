@@ -19,7 +19,8 @@ export default function BrandStatement() {
               maxWidth: "26ch",
             }}
           >
-            MMG is a storytelling partner for brands and entities that{" "}
+            Backed by 15 years of experience, MMG is a storytelling partner
+            for brands and entities that{" "}
             <span className="text-accent">shape culture.</span>
           </h2>
         </Reveal>

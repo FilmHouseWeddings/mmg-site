@@ -1,6 +1,57 @@
 # MMG Site — Session Recap
 Last updated: August 31, 2026
 
+## Homepage "Start a project" CTA + the contact form actually works now (Aug 31, 2026)
+
+**The form sends. Verified end to end:** a real browser submission on the live site returns 200,
+renders the confirmation, and Resend reports `delivered`. Four test sends, all delivered.
+
+### What shipped
+`StartProject.tsx` — ink button under the brand statement (Brand Bible A11 spec: Space Mono
+uppercase, paper on ink, square, 28x15, hover to oxblood) that expands in place into a short brief
+rather than linking to /contact. `ContactForm` gained a `variant` prop ("compact" drops Company),
+a required free-text **Investment** field, the confirmation copy "Thank you for your submission. /
+Our team will be in touch with you within 24 to 48 hours.", and a **mailto rescue link** on failure
+that hands the sender their own brief back rather than stranding it.
+
+### The thing that was actually broken
+`ContactForm` was **orphaned** — nothing imported it, /contact is email-reveal only. So
+`/api/contact` had never once been called in production, and **`RESEND_API_KEY` had never existed
+in the mmg-site Vercel project** (zero env vars at all). Every send returned 401. The CTA did not
+break the form; it was the first thing to ever call it.
+
+Worth knowing: the `RESEND_API_KEY` stored in the **film-house-weddings Vercel project is invalid**
+(Resend returns "API key is invalid"). The working key lives in
+`Film House Weddings 2026 Site/film-house-weddings/.env.local` and is now also set on mmg-site.
+If FHW ever needs to send mail, its Vercel key needs replacing.
+
+### Where inquiries land — and the one thing still open
+Currently **dennis@filmhouseweddings.com**, not dennis@makemovegrow.com. This is forced, not
+chosen: the sender is still Resend's shared sandbox `onboarding@resend.dev`, which only delivers to
+the address the Resend account is registered under. No domain is verified on that Resend account.
+
+`makemovegrow.com` has been **added to Resend** (status `not_started`). To finish, these three
+records go into GoDaddy DNS for makemovegrow.com — note they sit on the `send` subdomain, so the
+existing root SPF is untouched and must not be edited:
+
+| Type | Name | Value | Priority |
+|---|---|---|---|
+| TXT | `resend._domainkey` | `p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDAIgCXaTdXMs2lxvIxkr02xVspUu8xz6YkTQrPpMSHG91ueAVGQ3lCMdPUWUhLANl9sMYrCX22wUJc0RdMnRkSLxqVYxjewdUip+X5H0PtsX2fmWxVBSQS02Fllq8Fx6LXBIhoAYExeqAcvJ6mepKZAbXwq03weOq73cXOBSkqwQIDAQAB` | — |
+| MX | `send` | `feedback-smtp.us-east-1.amazonses.com` | 10 |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` | — |
+
+Then verify in Resend and set two Vercel env vars — **no code change, no deploy needed**, the route
+reads them at runtime:
+```
+CONTACT_FROM_EMAIL = "MMG <hello@makemovegrow.com>"
+CONTACT_TO_EMAIL   = "dennis@makemovegrow.com"
+```
+
+DNS is at **GoDaddy** (`ns05/ns06.domaincontrol.com`), not Vercel, so it cannot be scripted from
+here without GoDaddy API credentials, which do not exist on this machine.
+
+---
+
 ## Homepage feed reorder (Aug 31, 2026) — deployed at `0d17748`
 
 `FEED_ORDER` in content.ts is now: Emmys → **Claude Impact Lab** → Lancaster → Calvin Klein →

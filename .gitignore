@@ -42,3 +42,4 @@ next-env.d.ts
 
 # OMC tool state
 .omc/
+.env*.local

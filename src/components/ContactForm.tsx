@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ContactFormProps {
   // "compact" drops the Company field and shortens the textarea, for the
@@ -11,6 +11,15 @@ interface ContactFormProps {
 export default function ContactForm({ variant = "full" }: ContactFormProps) {
   const compact = variant === "compact";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const sentRef = useRef<HTMLDivElement>(null);
+
+  // The form collapses from tall to short on success, which can leave the
+  // confirmation behind the sticky header or above the fold. A confirmation
+  // the sender can't see is the same as no confirmation.
+  useEffect(() => {
+    if (status !== "sent") return;
+    sentRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [status]);
 
   const fieldClass =
     "w-full bg-card text-ink font-display px-4 py-[14px] text-[15px] border border-line rounded-[3px] focus:outline-none focus:border-accent transition-colors duration-[200ms]";
@@ -41,10 +50,12 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
   if (status === "sent") {
     return (
-      <div className="py-10">
-        <p className="font-display text-ink text-[22px] font-semibold mb-2">Got it.</p>
+      <div ref={sentRef} className="py-10 scroll-mt-24">
+        <p className="font-display text-ink text-[22px] font-semibold mb-2">
+          Thank you for your submission.
+        </p>
         <p className="font-mono uppercase text-faint" style={{ fontSize: 11, letterSpacing: "0.14em" }}>
-          We&apos;ll be in touch at your email.
+          Our team will be in touch with you within 24 to 48 hours.
         </p>
       </div>
     );

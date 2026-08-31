@@ -1,6 +1,18 @@
 # MMG Site — Session Recap
 Last updated: August 31, 2026
 
+## Homepage feed reorder (Aug 31, 2026) — deployed at `0d17748`
+
+`FEED_ORDER` in content.ts is now: Emmys → **Claude Impact Lab** → Lancaster → Calvin Klein →
+Adizero → CRAVE → Augustinus Bader. Dennis's call.
+
+The **hero slideshow is a separate order** and was not touched — `HeroSlideshow.tsx` renders
+`publishedCaseStudies` (i.e. declaration order in the `caseStudies` array), so Claude Impact Lab is
+currently the first slide because its entry sits first in that array. Moving a slide means moving
+the object in `caseStudies`, not editing `FEED_ORDER`.
+
+---
+
 ## Latest: Claude Impact Lab, Los Angeles case study (Aug 31, 2026) — built, not yet committed
 
 New published case study at `/project/claude-impact-lab-los-angeles`, first item in `FEED_ORDER`,

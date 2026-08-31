@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  // "compact" drops the Company field and shortens the textarea, for the
+  // homepage CTA. "full" is the /contact page and must stay unchanged.
+  variant?: "full" | "compact";
+}
+
+export default function ContactForm({ variant = "full" }: ContactFormProps) {
+  const compact = variant === "compact";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const fieldClass =
@@ -13,10 +20,13 @@ export default function ContactForm() {
     setStatus("sending");
 
     const form = e.currentTarget;
+    // Company is absent in the compact variant, and optional in the API route.
+    const companyEl = form.elements.namedItem("company") as HTMLInputElement | null;
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      company: companyEl?.value ?? "",
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      investment: (form.elements.namedItem("investment") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
@@ -44,8 +54,11 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit}>
       {[
         { label: "Name", name: "name", type: "text", placeholder: "Your name" },
-        { label: "Company", name: "company", type: "text", placeholder: "Company or brand" },
+        ...(compact
+          ? []
+          : [{ label: "Company", name: "company", type: "text", placeholder: "Company or brand" }]),
         { label: "Email", name: "email", type: "email", placeholder: "you@company.com" },
+        { label: "Investment", name: "investment", type: "text", placeholder: "Ballpark budget" },
       ].map((field) => (
         <div key={field.label} className="mb-5">
           <label
@@ -76,7 +89,7 @@ export default function ContactForm() {
           placeholder="What are you making, and when do you need it"
           required
           className={`${fieldClass} resize-y`}
-          style={{ minHeight: 120 }}
+          style={{ minHeight: compact ? 88 : 120 }}
         />
       </div>
 

@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import StartProject from "@/components/StartProject";
 
 export default function BrandStatement() {
   return (
@@ -23,6 +24,11 @@ export default function BrandStatement() {
             for brands and entities that{" "}
             <span className="text-accent">shape culture.</span>
           </h2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <div className="mt-8 md:mt-10">
+            <StartProject />
+          </div>
         </Reveal>
       </div>
     </section>

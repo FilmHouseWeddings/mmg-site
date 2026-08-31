@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const { name, company, email, message } = await req.json();
+  const { name, company, email, investment, message } = await req.json();
 
-  if (!name || !email || !message) {
+  if (!name || !email || !investment || !message) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -15,10 +15,13 @@ export async function POST(req: Request) {
     },
     body: JSON.stringify({
       from: "MMG Contact Form <onboarding@resend.dev>",
-      to: "hello@makemovegrow.com",
+      // Server-side only. This address is deliberately never rendered into
+      // client HTML — the contact page reveals it from char codes for the same
+      // reason. Keep it out of any component.
+      to: "dennis@makemovegrow.com",
       reply_to: email,
       subject: `New inquiry from ${name}${company ? ` · ${company}` : ""}`,
-      text: `Name: ${name}\nCompany: ${company || "—"}\nEmail: ${email}\n\n${message}`,
+      text: `Name: ${name}\nCompany: ${company || "—"}\nEmail: ${email}\nInvestment: ${investment}\n\n${message}`,
     }),
   });
 

@@ -12,6 +12,9 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
   const compact = variant === "compact";
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const sentRef = useRef<HTMLDivElement>(null);
+  // Held so a failed send can hand the sender their own words back as a
+  // prefilled email instead of stranding them in a form that won't submit.
+  const [rescue, setRescue] = useState("");
 
   // The form collapses from tall to short on success, which can leave the
   // confirmation behind the sticky header or above the fold. A confirmation
@@ -44,6 +47,24 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+
+    if (!res.ok) {
+      const body = [
+        `Name: ${data.name}`,
+        data.company ? `Company: ${data.company}` : null,
+        `Email: ${data.email}`,
+        `Investment: ${data.investment}`,
+        "",
+        data.message,
+      ]
+        .filter((line) => line !== null)
+        .join("\n");
+      setRescue(
+        `mailto:hello@makemovegrow.com?subject=${encodeURIComponent(
+          `New inquiry from ${data.name}`
+        )}&body=${encodeURIComponent(body)}`
+      );
+    }
 
     setStatus(res.ok ? "sent" : "error");
   }
@@ -105,9 +126,18 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
       </div>
 
       {status === "error" && (
-        <p className="font-mono text-accent mb-4" style={{ fontSize: 11 }}>
-          Something went wrong. Email us directly at hello@makemovegrow.com
-        </p>
+        <div className="mb-4">
+          <p className="font-mono text-accent" style={{ fontSize: 11 }}>
+            Something went wrong on our end. Nothing you wrote is lost.
+          </p>
+          <a
+            href={rescue}
+            className="inline-block font-mono uppercase text-ink underline underline-offset-4 decoration-line hover:text-accent transition-colors duration-[250ms] mt-2"
+            style={{ fontSize: 11, letterSpacing: "0.14em" }}
+          >
+            Send it as an email instead →
+          </a>
+        </div>
       )}
 
       <button

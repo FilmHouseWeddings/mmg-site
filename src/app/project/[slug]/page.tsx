@@ -14,7 +14,8 @@ import CaseVideo from "@/components/CaseVideo";
 import CreditsBlock from "@/components/CreditsBlock";
 import PhotoCollage from "@/components/PhotoCollage";
 import RelatedProjects from "@/components/RelatedProjects";
-import { getThumbnailsBySlug } from "@/lib/vimeo";
+import ProjectSections from "@/components/ProjectSections";
+import { getThumbnailsBySlug, getVimeoThumbnail } from "@/lib/vimeo";
 
 export async function generateStaticParams() {
   return publishedCaseStudies.map((cs) => ({ slug: cs.slug }));
@@ -34,7 +35,9 @@ export async function generateMetadata({
 
   return {
     title: cs.title,
-    description: isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis,
+    description:
+      cs.metaDescription ??
+      (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis),
   };
 }
 
@@ -51,9 +54,68 @@ export default async function ProjectPage({
   const related = getRelated(cs);
   const relatedThumbnails = await getThumbnailsBySlug(related);
   const secondaryMedia = cs.media.slice(1);
+  const url = `https://www.makemovegrow.com/project/${cs.slug}`;
+  const posterUrl = cs.heroVideo
+    ? await getVimeoThumbnail(cs.heroVideo.vimeoId, cs.heroVideo.vimeoHash)
+    : null;
+
+  // Structured data. Each block is emitted only when the page actually has the
+  // content behind it, so nothing is claimed in schema that a reader can't see.
+  const schemas: Record<string, unknown>[] = [];
+
+  if (cs.event) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "Event",
+      name: cs.event.name,
+      description: cs.event.description,
+      ...(cs.event.startDate ? { startDate: cs.event.startDate } : {}),
+      eventStatus: "https://schema.org/EventScheduled",
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      location: {
+        "@type": "Place",
+        ...(cs.event.venueName ? { name: cs.event.venueName } : {}),
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: cs.event.locality,
+          addressRegion: cs.event.region,
+          addressCountry: cs.event.country,
+        },
+      },
+      organizer: {
+        "@type": "Organization",
+        name: cs.event.organizerName,
+        ...(cs.event.organizerUrl ? { url: cs.event.organizerUrl } : {}),
+      },
+      ...(posterUrl ? { image: posterUrl } : {}),
+      subjectOf: { "@type": "VideoObject", name: cs.title, url },
+    });
+  }
+
+  if (cs.heroVideo) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: cs.title,
+      description: cs.metaDescription ?? (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis),
+      ...(posterUrl ? { thumbnailUrl: posterUrl } : {}),
+      embedUrl: `https://player.vimeo.com/video/${cs.heroVideo.vimeoId}`,
+      contentUrl: `https://vimeo.com/${cs.heroVideo.vimeoId}`,
+      url,
+      productionCompany: { "@type": "Organization", name: "MMG" },
+    });
+  }
 
   return (
     <main className="bg-paper">
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+
       <div className="max-w-[1200px] mx-auto px-5 md:px-9 pt-8 pb-20 md:pb-28">
         <Reveal>
           <Link
@@ -108,6 +170,10 @@ export default async function ProjectPage({
               </p>
             </div>
           </Reveal>
+        )}
+
+        {cs.sections && cs.sections.length > 0 && (
+          <ProjectSections sections={cs.sections} />
         )}
 
         {cs.photos && cs.photos.length > 0 && (

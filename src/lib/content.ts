@@ -61,6 +61,29 @@ export type Credit = { role: string; name: string };
 // required so the grid reserves space and nothing has to be cropped.
 export type Photo = { src: string; alt: string; w: number; h: number };
 
+// Long-form editorial sections rendered under "What We Did". Used by pages
+// that need more than the standard synopsis + execution pair — an event
+// overview, a process breakdown — without giving each one a bespoke route.
+export type Section = {
+  kicker: string; // small accent label above the block
+  body?: string[]; // paragraphs
+  bullets?: { label: string; text: string }[]; // optional labelled list
+};
+
+// Emitted as Event structured data when present. `startDate` is optional so a
+// page can ship before the date is confirmed; add it and the schema completes.
+export type EventInfo = {
+  name: string;
+  description: string;
+  startDate?: string; // ISO 8601, e.g. "2026-08-09"
+  locality: string;
+  region: string;
+  country: string;
+  venueName?: string;
+  organizerName: string;
+  organizerUrl?: string;
+};
+
 export type CategorySlug =
   | "branded"
   | "event-coverage"
@@ -77,6 +100,9 @@ export type CaseStudy = {
   categories: CategorySlug[];
   synopsis: string; // describes the client's project/brief
   whatWeDid: string; // MMG's execution story
+  metaDescription?: string; // overrides synopsis in <meta description>
+  sections?: Section[]; // optional long-form blocks under "What We Did"
+  event?: EventInfo; // rendered as Event schema when the work covers an event
   heroVideo?: { vimeoId: string; vimeoHash?: string };
   bg: string; // gradient fallback for cards without video
   media: MediaItem[];
@@ -239,6 +265,53 @@ const adizeroPhotos: Photo[] = [
 ];
 
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "claude-impact-lab-los-angeles",
+    title: "Claude Impact Lab: Los Angeles",
+    client: "Claude Community Events",
+    roleLine: "Event coverage for Claude Community Events",
+    categories: ["event-coverage"],
+    metaDescription:
+      "Inside the Claude Impact Lab in Los Angeles, the full day build event where the Claude Community turned a question about AI and work into working prototypes.",
+    synopsis:
+      "The Claude Impact Lab is a full day, in person build event hosted by Claude Community Events, the network of local groups who meet around the world to build with Anthropic's Claude. In Los Angeles, the Impact Lab brought together developers, non developers, and everyone in between for one goal: turn a single question, raised by the local community itself, into a working prototype by the end of the day.",
+    // TODO: confirm MMG's exact scope on the day — full day coverage, a single
+    // segment, or interviews — and make this line specific.
+    whatWeDid:
+      "Make Move Grow was on site to capture the day in film, from the morning brief through the final demos.",
+    sections: [
+      {
+        kicker: "Who organizes it",
+        body: [
+          "Claude Impact Labs and Claude Conversations are organized locally under Claude Community Events, a global program of grassroots meetups for people who build with Claude, the AI assistant made by Anthropic. The Los Angeles chapter is hosted by Travis Johnson and Evan Grenda.",
+        ],
+      },
+    ],
+    // TODO: add `startDate` once the build day is confirmed — the Event schema
+    // is incomplete without it and dated events surface more precisely.
+    event: {
+      name: "Claude Impact Lab: Los Angeles",
+      description:
+        "A full day, in person build event where the Los Angeles Claude Community formed teams and built working prototypes around a problem raised at the July 24 Claude Conversation.",
+      locality: "Los Angeles",
+      region: "CA",
+      country: "US",
+      organizerName: "Claude Community Events",
+    },
+    heroVideo: { vimeoId: "1220956795", vimeoHash: "b0599cfcef" },
+    bg: "linear-gradient(155deg,#2a1e16,#100b09)",
+    media: [{ type: "vimeo", vimeoId: "1220956795", vimeoHash: "b0599cfcef" }],
+    credits: placeholderCredits,
+    related: [
+      "emmys-governors-ball",
+      "city-of-lancaster-commercial",
+      "crave-4orce-goldberg",
+    ],
+    featured: false,
+    span: 8,
+    ratio: "16/9",
+    published: true,
+  },
   {
     slug: "crave-4orce-goldberg",
     title: "CRAVE 4ORCE - Goldberg",
@@ -426,6 +499,7 @@ export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 // Homepage feed order (top to bottom) — edit this list to re-order the feed.
 // Published projects missing from the list are appended at the end.
 const FEED_ORDER = [
+  "claude-impact-lab-los-angeles",
   "emmys-governors-ball",
   "calvin-klein-mycalvins",
   "adizero-lightest-cleat",

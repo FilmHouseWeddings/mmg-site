@@ -1,5 +1,36 @@
 # MMG Site — Session Recap
-Last updated: July 21, 2026
+Last updated: August 31, 2026
+
+## Latest: Claude Impact Lab, Los Angeles case study (Aug 31, 2026) — built, not yet committed
+
+New published case study at `/project/claude-impact-lab-los-angeles`, first item in `FEED_ORDER`,
+category **Event Coverage**, client **Claude Community Events** (Anthropic named in the body copy,
+not as the client). Hero film: Vimeo `1220956795` / `b0599cfcef`.
+
+Dennis cut the page down from the SEO brief he supplied: **"Where the question came from", "What
+happens during a Claude Impact Lab", "Who can join", and the whole FAQ block are all removed.** The
+page is now hero film → title → synopsis → What We Did → "Who organizes it" → related work. The FAQ
+infrastructure was deleted with it (`FaqBlock.tsx`, the `Faq` type, the `faqs` field, and the
+FAQPage JSON-LD branch) rather than left as dead code — re-add if a future page wants FAQs.
+
+Surviving additions to `content.ts`: `CaseStudy` gained three optional fields — `metaDescription`,
+`sections` (accent-kicker editorial blocks; supports paragraphs plus an optional labelled list),
+and `event`. Rendered by the new `ProjectSections.tsx`. The project page emits **Event** and
+**VideoObject** JSON-LD, each only when the matching content exists. All fields optional, so the
+other six case studies render exactly as before.
+
+Verified by a clean `npm run build` in the local SSD scratchpad copy (the Drive path still can't
+build — see AGENTS.md): 23/23 static pages, page prerendered, meta description correct, sitemap
+entry present, Vimeo poster resolving, 0 console errors.
+
+Open on this page:
+- [ ] **Impact Lab build-day date** — `event.startDate` is absent, so the Event schema is incomplete
+      and there's no date on the page. Add the ISO date to `event` in content.ts when confirmed.
+- [ ] **MMG's actual scope on the day** — "What We Did" is still the brief's generic placeholder line
+      ("on site to capture the day in film"). Needs Dennis's real scope.
+- [ ] Credits are still `placeholderCredits` (hidden until real names land).
+
+---
 
 ## Current State: 🚀 REDESIGN IS LIVE ON makemovegrow.com (deployed July 21, 2026)
 

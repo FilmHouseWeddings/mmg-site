@@ -1,5 +1,22 @@
 import { NextResponse } from "next/server";
 
+// Where inquiries go, and who they come from. Both are environment driven so
+// the switch to a verified domain is a Vercel setting, not a code change and a
+// deploy.
+//
+// Defaults are the sandbox-safe pair: Resend's shared sender only delivers to
+// the address the Resend account is registered under, and anything else comes
+// back 403. Once makemovegrow.com is verified in Resend, set
+//   CONTACT_FROM_EMAIL = "MMG <hello@makemovegrow.com>"
+//   CONTACT_TO_EMAIL   = "dennis@makemovegrow.com"
+// and inquiries land where they belong, out of the spam folder.
+//
+// Server-side only. These addresses are never rendered into client HTML — the
+// contact page reveals its address from char codes for the same reason.
+const FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL ?? "MMG Contact Form <onboarding@resend.dev>";
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "dennis@filmhouseweddings.com";
+
 export async function POST(req: Request) {
   const { name, company, email, investment, message } = await req.json();
 
@@ -14,17 +31,8 @@ export async function POST(req: Request) {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "MMG Contact Form <onboarding@resend.dev>",
-      // INTERIM. While `from` is Resend's shared sandbox sender, Resend only
-      // delivers to the address the Resend account is registered under —
-      // anything else comes back 403. Once makemovegrow.com is verified in
-      // Resend, change `from` to hello@makemovegrow.com and this back to
-      // dennis@makemovegrow.com.
-      //
-      // Server-side only either way. These addresses are deliberately never
-      // rendered into client HTML — the contact page reveals its address from
-      // char codes for the same reason. Keep them out of any component.
-      to: "dennis@filmhouseweddings.com",
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
       reply_to: email,
       subject: `New inquiry from ${name}${company ? ` · ${company}` : ""}`,
       text: `Name: ${name}\nCompany: ${company || "—"}\nEmail: ${email}\nInvestment: ${investment}\n\n${message}`,

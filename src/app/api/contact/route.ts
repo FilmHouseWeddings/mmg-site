@@ -15,10 +15,16 @@ export async function POST(req: Request) {
     },
     body: JSON.stringify({
       from: "MMG Contact Form <onboarding@resend.dev>",
-      // Server-side only. This address is deliberately never rendered into
-      // client HTML — the contact page reveals it from char codes for the same
-      // reason. Keep it out of any component.
-      to: "dennis@makemovegrow.com",
+      // INTERIM. While `from` is Resend's shared sandbox sender, Resend only
+      // delivers to the address the Resend account is registered under —
+      // anything else comes back 403. Once makemovegrow.com is verified in
+      // Resend, change `from` to hello@makemovegrow.com and this back to
+      // dennis@makemovegrow.com.
+      //
+      // Server-side only either way. These addresses are deliberately never
+      // rendered into client HTML — the contact page reveals its address from
+      // char codes for the same reason. Keep them out of any component.
+      to: "dennis@filmhouseweddings.com",
       reply_to: email,
       subject: `New inquiry from ${name}${company ? ` · ${company}` : ""}`,
       text: `Name: ${name}\nCompany: ${company || "—"}\nEmail: ${email}\nInvestment: ${investment}\n\n${message}`,

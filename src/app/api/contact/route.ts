@@ -26,7 +26,15 @@ export async function POST(req: Request) {
   });
 
   if (!res.ok) {
-    return NextResponse.json({ error: "Failed to send" }, { status: 500 });
+    // Surface the upstream reason. Without this a failed send is a silent 500
+    // and there is no way to tell a missing API key (401) from Resend's
+    // sandbox-sender restriction (403) from a validation error (422).
+    const detail = await res.text().catch(() => "");
+    console.error(`Resend send failed: ${res.status} ${detail}`);
+    return NextResponse.json(
+      { error: "Failed to send", upstreamStatus: res.status },
+      { status: 500 }
+    );
   }
 
   return NextResponse.json({ ok: true });

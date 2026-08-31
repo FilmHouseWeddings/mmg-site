@@ -499,13 +499,13 @@ export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 // Homepage feed order (top to bottom) — edit this list to re-order the feed.
 // Published projects missing from the list are appended at the end.
 const FEED_ORDER = [
-  "claude-impact-lab-los-angeles",
   "emmys-governors-ball",
+  "claude-impact-lab-los-angeles",
+  "city-of-lancaster-commercial",
   "calvin-klein-mycalvins",
   "adizero-lightest-cleat",
   "crave-4orce-goldberg",
   "augustinus-bader-the-body-knows",
-  "city-of-lancaster-commercial",
 ];
 
 export const feedCaseStudies: CaseStudy[] = [

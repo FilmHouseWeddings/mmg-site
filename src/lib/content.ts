@@ -448,6 +448,28 @@ export const caseStudies: CaseStudy[] = [
     published: true,
   },
   {
+    slug: "pro-bowl-recap",
+    title: "Pro Bowl Recap",
+    client: "AwesomenessTV",
+    roleLine: "Event coverage for AwesomenessTV",
+    categories: ["event-coverage"],
+    // TODO: replace placeholder content
+    synopsis:
+      "[PLACEHOLDER] AwesomenessTV needed a recap of the Pro Bowl that captured the energy of the weekend for its audience.",
+    // TODO: replace placeholder content
+    whatWeDid:
+      "[PLACEHOLDER] MMG covered the event and delivered a fast turnaround recap built for social distribution.",
+    heroVideo: { vimeoId: "1140164075", vimeoHash: "4250270e36" },
+    bg: "linear-gradient(155deg,#14202b,#090d12)",
+    media: [{ type: "vimeo", vimeoId: "1140164075", vimeoHash: "4250270e36" }],
+    credits: placeholderCredits,
+    related: ["emmys-governors-ball", "claude-impact-lab-los-angeles", "city-of-lancaster-commercial"],
+    featured: false,
+    span: 6,
+    ratio: "16/9",
+    published: true,
+  },
+  {
     slug: "city-of-lancaster-commercial",
     title: "City of Lancaster | Commercial",
     client: "City of Lancaster",
@@ -499,6 +521,7 @@ export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 // Homepage feed order (top to bottom) — edit this list to re-order the feed.
 // Published projects missing from the list are appended at the end.
 const FEED_ORDER = [
+  "pro-bowl-recap",
   "emmys-governors-ball",
   "claude-impact-lab-los-angeles",
   "city-of-lancaster-commercial",

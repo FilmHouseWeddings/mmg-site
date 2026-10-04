@@ -448,14 +448,14 @@ export const caseStudies: CaseStudy[] = [
     published: true,
   },
   {
-    slug: "pro-bowl-recap",
-    title: "Pro Bowl Recap",
+    slug: "nfl-pro-bowl-recap",
+    title: "NFL Pro Bowl Recap",
     client: "AwesomenessTV",
     roleLine: "Event coverage for AwesomenessTV",
     categories: ["event-coverage"],
     // TODO: replace placeholder content
     synopsis:
-      "[PLACEHOLDER] AwesomenessTV needed a recap of the Pro Bowl that captured the energy of the weekend for its audience.",
+      "[PLACEHOLDER] AwesomenessTV needed a recap of the NFL Pro Bowl that captured the energy of the weekend for its audience.",
     // TODO: replace placeholder content
     whatWeDid:
       "[PLACEHOLDER] MMG covered the event and delivered a fast turnaround recap built for social distribution.",
@@ -521,7 +521,7 @@ export const publishedCaseStudies = caseStudies.filter((cs) => cs.published);
 // Homepage feed order (top to bottom) — edit this list to re-order the feed.
 // Published projects missing from the list are appended at the end.
 const FEED_ORDER = [
-  "pro-bowl-recap",
+  "nfl-pro-bowl-recap",
   "emmys-governors-ball",
   "claude-impact-lab-los-angeles",
   "city-of-lancaster-commercial",

@@ -1,5 +1,13 @@
 # MMG Site — Session Recap
-Last updated: August 31, 2026
+Last updated: October 4, 2026
+
+## NFL Pro Bowl Recap case study (Oct 4, 2026)
+
+Shipped and live at `/project/nfl-pro-bowl-recap`: Event Coverage, client AwesomenessTV, Vimeo
+`1140164075` (hash `4250270e36`), top of `FEED_ORDER`. Modeled on the Emmys entry. Synopsis,
+What We Did, and credits are `[PLACEHOLDER]`/TBD so they stay hidden until Dennis sends real copy.
+Client name uses the official "AwesomenessTV" styling (Dennis wrote "Awesomeness TV"; not objected to).
+
 
 ## Homepage "Start a project" CTA + the contact form actually works now (Aug 31, 2026)
 

@@ -165,9 +165,14 @@ export default async function ProjectPage({
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent mb-3">
                 What We Did
               </p>
-              <p className="max-w-[680px] text-[16px] leading-[1.7] text-muted">
-                {cs.whatWeDid}
-              </p>
+              {cs.whatWeDid.split("\n\n").map((para, i) => (
+                <p
+                  key={i}
+                  className={`max-w-[680px] text-[16px] leading-[1.7] text-muted${i > 0 ? " mt-4" : ""}`}
+                >
+                  {para}
+                </p>
+              ))}
             </div>
           </Reveal>
         )}

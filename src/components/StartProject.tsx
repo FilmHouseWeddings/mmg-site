@@ -99,7 +99,7 @@ export default function StartProject() {
                 </button>
               </div>
 
-              <ContactForm variant="compact" />
+              <ContactForm />
             </div>
           </motion.div>
         )}

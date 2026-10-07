@@ -2,14 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 
-interface ContactFormProps {
-  // "compact" drops the Company field and shortens the textarea, for the
-  // homepage CTA. "full" is the /contact page and must stay unchanged.
-  variant?: "full" | "compact";
-}
+// Four fields and nothing else: enough to call someone back. Scope and budget
+// are a conversation, not a form.
+const FIELDS = [
+  { label: "Your name", name: "name", type: "text", placeholder: "Your name", autoComplete: "name" },
+  { label: "Company name", name: "company", type: "text", placeholder: "Company name", autoComplete: "organization" },
+  { label: "Email", name: "email", type: "email", placeholder: "you@company.com", autoComplete: "email" },
+  { label: "Phone number", name: "phone", type: "tel", placeholder: "(555) 555-5555", autoComplete: "tel" },
+] as const;
 
-export default function ContactForm({ variant = "full" }: ContactFormProps) {
-  const compact = variant === "compact";
+export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const sentRef = useRef<HTMLDivElement>(null);
   // Held so a failed send can hand the sender their own words back as a
@@ -32,14 +34,12 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     setStatus("sending");
 
     const form = e.currentTarget;
-    // Company is absent in the compact variant, and optional in the API route.
-    const companyEl = form.elements.namedItem("company") as HTMLInputElement | null;
+    const value = (name: string) => (form.elements.namedItem(name) as HTMLInputElement).value;
     const data = {
-      name: (form.elements.namedItem("name") as HTMLInputElement).value,
-      company: companyEl?.value ?? "",
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      investment: (form.elements.namedItem("investment") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      name: value("name"),
+      company: value("company"),
+      email: value("email"),
+      phone: value("phone"),
     };
 
     const res = await fetch("/api/contact", {
@@ -51,14 +51,10 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
     if (!res.ok) {
       const body = [
         `Name: ${data.name}`,
-        data.company ? `Company: ${data.company}` : null,
+        `Company: ${data.company}`,
         `Email: ${data.email}`,
-        `Investment: ${data.investment}`,
-        "",
-        data.message,
-      ]
-        .filter((line) => line !== null)
-        .join("\n");
+        `Phone: ${data.phone}`,
+      ].join("\n");
       setRescue(
         `mailto:hello@makemovegrow.com?subject=${encodeURIComponent(
           `New inquiry from ${data.name}`
@@ -84,46 +80,26 @@ export default function ContactForm({ variant = "full" }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {[
-        { label: "Name", name: "name", type: "text", placeholder: "Your name" },
-        ...(compact
-          ? []
-          : [{ label: "Company", name: "company", type: "text", placeholder: "Company or brand" }]),
-        { label: "Email", name: "email", type: "email", placeholder: "you@company.com" },
-        { label: "Investment", name: "investment", type: "text", placeholder: "Ballpark budget" },
-      ].map((field) => (
-        <div key={field.label} className="mb-5">
+      {FIELDS.map((field) => (
+        <div key={field.name} className="mb-5">
           <label
+            htmlFor={`contact-${field.name}`}
             className="block font-mono uppercase text-faint mb-2"
             style={{ fontSize: 10, letterSpacing: "0.16em" }}
           >
             {field.label}
           </label>
           <input
+            id={`contact-${field.name}`}
             type={field.type}
             name={field.name}
             placeholder={field.placeholder}
-            required={field.name !== "company"}
+            autoComplete={field.autoComplete}
+            required
             className={fieldClass}
           />
         </div>
       ))}
-
-      <div className="mb-5">
-        <label
-          className="block font-mono uppercase text-faint mb-2"
-          style={{ fontSize: 10, letterSpacing: "0.16em" }}
-        >
-          The project
-        </label>
-        <textarea
-          name="message"
-          placeholder="What are you making, and when do you need it"
-          required
-          className={`${fieldClass} resize-y`}
-          style={{ minHeight: compact ? 88 : 120 }}
-        />
-      </div>
 
       {status === "error" && (
         <div className="mb-4">

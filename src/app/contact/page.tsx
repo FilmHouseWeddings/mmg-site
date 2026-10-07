@@ -49,7 +49,7 @@ export default function ContactPage() {
                       letterSpacing: "-0.02em",
                     }}
                   >
-                    Dennis Muyar
+                    Dennis Mulyar
                   </h2>
                   <p
                     className="font-mono uppercase text-muted mt-2 mb-0"

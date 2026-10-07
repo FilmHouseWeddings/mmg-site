@@ -99,7 +99,7 @@ export type CaseStudy = {
   roleLine: string; // e.g. "Brand film for Goldberg" — IF-style "Main Title for Netflix"
   categories: CategorySlug[];
   synopsis: string; // describes the client's project/brief
-  whatWeDid: string; // MMG's execution story
+  whatWeDid: string; // MMG's execution story; "\n\n" separates paragraphs
   metaDescription?: string; // overrides synopsis in <meta description>
   sections?: Section[]; // optional long-form blocks under "What We Did"
   event?: EventInfo; // rendered as Event schema when the work covers an event
@@ -428,15 +428,21 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "emmys-governors-ball",
     title: "Emmys Governors Ball",
-    client: "Sequoia Productions", // TODO: confirm client attribution
-    roleLine: "Event coverage for the Emmys Governors Ball",
+    client: "Sequoia Productions",
+    roleLine: "Event coverage for Sequoia Productions",
     categories: ["event-coverage"],
-    // TODO: replace placeholder content
+    metaDescription:
+      "Live event film for the Emmys Governors Ball, produced for Sequoia Productions. MMG covered the night and finished in house.",
     synopsis:
-      "[PLACEHOLDER] The Television Academy's Governors Ball needed coverage that matched the scale of the night, capturing the room, the guests, and the production design of television's biggest afterparty.",
-    // TODO: replace placeholder content
+      "The Governors Ball is the official after-party of the Primetime Emmy Awards. Sequoia Productions trusted MMG to film the night live, under the same clock as national broadcast.",
     whatWeDid:
-      "[PLACEHOLDER] MMG covered the event end to end, moving through the room without interrupting it, and delivered a polished recap built for both the producing team and press distribution.",
+      "We covered arrivals, stage moments, and floor energy with a lean crew, then finished in house so files could turn around clean for brand and social use.\n\nThis is the kind of live event work MMG does for producers and brands who do not get a second take.",
+    sections: [
+      {
+        kicker: "What we delivered",
+        body: ["Live night event film, in house edit and color, files ready for brand and social cutdowns."],
+      },
+    ],
     heroVideo: { vimeoId: "984611824", vimeoHash: "5612e9a8af" },
     bg: "linear-gradient(155deg,#241f14,#0f0d09)",
     media: [{ type: "vimeo", vimeoId: "984611824", vimeoHash: "5612e9a8af" }],

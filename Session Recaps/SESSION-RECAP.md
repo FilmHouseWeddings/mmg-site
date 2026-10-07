@@ -19,8 +19,9 @@ Live at `f90d404`.
 - Inquiries STILL land at dennis@filmhouseweddings.com. Checked Oct 6: none of the three GoDaddy
   records exist yet and Resend shows the domain as `failed`. Once records are in, click Verify in
   Resend again, then set the two Vercel env vars below.
-- Open from Dennis, not yet decided: expand /work with per-service blurbs, a Cities and public
-  agencies block linking Lancaster, and a stills gallery.
+- /work also has a Cities and public agencies block (draft copy written by Claude, approved to
+  ship) linking the Lancaster case study, whose page is still placeholder copy.
+- Still undecided: per-service blurbs on /work and a stills gallery.
 
 ## NFL Pro Bowl Recap case study (Oct 4, 2026)
 

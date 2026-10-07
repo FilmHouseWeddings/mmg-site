@@ -2,13 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// Four fields and nothing else: enough to call someone back. Scope and budget
-// are a conversation, not a form.
 const FIELDS = [
   { label: "Your name", name: "name", type: "text", placeholder: "Your name", autoComplete: "name" },
   { label: "Company name", name: "company", type: "text", placeholder: "Company name", autoComplete: "organization" },
   { label: "Email", name: "email", type: "email", placeholder: "you@company.com", autoComplete: "email" },
   { label: "Phone number", name: "phone", type: "tel", placeholder: "(555) 555-5555", autoComplete: "tel" },
+  { label: "Investment", name: "investment", type: "text", placeholder: "Ballpark budget", autoComplete: "off" },
 ] as const;
 
 export default function ContactForm() {
@@ -40,6 +39,8 @@ export default function ContactForm() {
       company: value("company"),
       email: value("email"),
       phone: value("phone"),
+      investment: value("investment"),
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
     const res = await fetch("/api/contact", {
@@ -54,6 +55,9 @@ export default function ContactForm() {
         `Company: ${data.company}`,
         `Email: ${data.email}`,
         `Phone: ${data.phone}`,
+        `Investment: ${data.investment}`,
+        "",
+        data.message,
       ].join("\n");
       setRescue(
         `mailto:hello@makemovegrow.com?subject=${encodeURIComponent(
@@ -100,6 +104,24 @@ export default function ContactForm() {
           />
         </div>
       ))}
+
+      <div className="mb-5">
+        <label
+          htmlFor="contact-message"
+          className="block font-mono uppercase text-faint mb-2"
+          style={{ fontSize: 10, letterSpacing: "0.16em" }}
+        >
+          The project
+        </label>
+        <textarea
+          id="contact-message"
+          name="message"
+          placeholder="What are you making, and when do you need it"
+          required
+          className={`${fieldClass} resize-y`}
+          style={{ minHeight: 88 }}
+        />
+      </div>
 
       {status === "error" && (
         <div className="mb-4">

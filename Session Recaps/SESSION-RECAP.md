@@ -5,8 +5,9 @@ Last updated: October 6, 2026
 
 Live at `f90d404`.
 - Name typo "Dennis Muyar" fixed on /contact AND in the sitewide Organization JSON-LD.
-- Homepage Start a project form is now exactly four required fields: Your name, Company name,
-  Email, Phone number. Investment and project message are gone; `/api/contact` requires all four.
+- Homepage Start a project form fields, all required: Your name, Company name, Email, Phone
+  number, Investment, The project. (Investment and The project were briefly removed by mistake and
+  restored the same day; Dennis wants them kept.)
 - Emmys Governors Ball has real copy: roleLine "Event coverage for Sequoia Productions", synopsis,
   two-paragraph What We Did (`whatWeDid` now splits on a blank line), a "What we delivered"
   section, and a metaDescription. Sequoia attribution is confirmed.

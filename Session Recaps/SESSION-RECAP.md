@@ -1,5 +1,25 @@
 # MMG Site — Session Recap
-Last updated: October 4, 2026
+Last updated: October 6, 2026
+
+## Copy and form pass (Oct 6, 2026)
+
+Live at `f90d404`.
+- Name typo "Dennis Muyar" fixed on /contact AND in the sitewide Organization JSON-LD.
+- Homepage Start a project form is now exactly four required fields: Your name, Company name,
+  Email, Phone number. Investment and project message are gone; `/api/contact` requires all four.
+- Emmys Governors Ball has real copy: roleLine "Event coverage for Sequoia Productions", synopsis,
+  two-paragraph What We Did (`whatWeDid` now splits on a blank line), a "What we delivered"
+  section, and a metaDescription. Sequoia attribution is confirmed.
+- /work has a Services list: Brand films, Event coverage, Photography, Motion graphics,
+  Social cutdowns, Live broadcast.
+- Site title, descriptions, contact studio line, and schema `areaServed` now say Los Angeles and
+  Orange County. Schema postal address is still `addressLocality: "Los Angeles"`; confirm with
+  Dennis whether that should be Irvine.
+- Inquiries STILL land at dennis@filmhouseweddings.com. Checked Oct 6: none of the three GoDaddy
+  records exist yet and Resend shows the domain as `failed`. Once records are in, click Verify in
+  Resend again, then set the two Vercel env vars below.
+- Open from Dennis, not yet decided: expand /work with per-service blurbs, a Cities and public
+  agencies block linking Lancaster, and a stills gallery.
 
 ## NFL Pro Bowl Recap case study (Oct 4, 2026)
 

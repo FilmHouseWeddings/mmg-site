@@ -50,7 +50,7 @@ const SERVICES = [
   "Brand films",
   "Event coverage",
   "Photography",
-  "Social media content",
+  "Motion graphics",
   "Social cutdowns",
   "Live broadcast",
 ];

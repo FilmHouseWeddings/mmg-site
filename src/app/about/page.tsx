@@ -7,7 +7,7 @@ import TrustedBy from "@/components/TrustedBy";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Fifteen years of production experience. MMG is a Los Angeles production house built for brands, agencies, and institutions: brand films, corporate events, live broadcast, and photography, executed at the highest standard. The concept stays yours.",
+    "Fifteen years of production experience. MMG is a Los Angeles and Orange County production house built for brands, agencies, and institutions: brand films, corporate events, live broadcast, and photography, executed at the highest standard. The concept stays yours.",
 };
 
 // Experience and working range surfaced under the About headline. These describe

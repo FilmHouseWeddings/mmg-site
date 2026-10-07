@@ -46,6 +46,15 @@ const pillars: Pillar[] = [
   },
 ];
 
+const SERVICES = [
+  "Brand films",
+  "Event coverage",
+  "Photography",
+  "Motion graphics",
+  "Social cutdowns",
+  "Live broadcast",
+];
+
 export default function WorkPage() {
   return (
     <>
@@ -82,6 +91,43 @@ export default function WorkPage() {
 
         {/* Pillars */}
         <Pillars pillars={pillars} categories={previewCategories} />
+
+        {/* Services */}
+        <section className="pb-[110px]">
+          <div className="max-w-[1200px] mx-auto px-5 md:px-9">
+            <Reveal>
+              <h2
+                className="font-mono uppercase text-accent m-0 mb-[22px] font-normal"
+                style={{ fontSize: 11, letterSpacing: "0.22em" }}
+              >
+                Services
+              </h2>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 list-none m-0 p-0 border-b border-line">
+                {SERVICES.map((service, i) => (
+                  <li
+                    key={service}
+                    className="flex items-baseline gap-5 border-t border-line py-5"
+                  >
+                    <span
+                      className="font-mono text-faint"
+                      style={{ fontSize: 11, letterSpacing: "0.14em" }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className="font-display font-semibold text-ink"
+                      style={{ fontSize: "clamp(22px,2.6vw,30px)", letterSpacing: "-0.01em" }}
+                    >
+                      {service}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
       </main>
       <Footer />
     </>

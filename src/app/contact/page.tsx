@@ -100,7 +100,7 @@ export default function ContactPage() {
                     Studio
                   </div>
                   <p className="text-muted m-0" style={{ fontSize: 16 }}>
-                    Los Angeles
+                    Los Angeles and Orange County
                   </p>
                   <p className="text-muted m-0" style={{ fontSize: 16 }}>
                     Working nationwide and worldwide, on location

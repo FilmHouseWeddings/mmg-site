@@ -3,7 +3,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Pillars, { type Pillar, type PillarCategory } from "@/components/Pillars";
+import ProjectCard from "@/components/ProjectCard";
 import { categories, caseStudies } from "@/lib/content";
+import { getThumbnailsBySlug } from "@/lib/vimeo";
 
 export const metadata: Metadata = {
   title: "What We Do",
@@ -55,7 +57,12 @@ const SERVICES = [
   "Live broadcast",
 ];
 
-export default function WorkPage() {
+// Public sector proof point for the Cities and public agencies block.
+const LANCASTER = caseStudies.find((cs) => cs.slug === "city-of-lancaster-commercial");
+
+export default async function WorkPage() {
+  const thumbnails = LANCASTER ? await getThumbnailsBySlug([LANCASTER]) : {};
+
   return (
     <>
       <Header />
@@ -128,6 +135,35 @@ export default function WorkPage() {
             </Reveal>
           </div>
         </section>
+
+        {/* Cities and public agencies */}
+        {LANCASTER && (
+          <section className="pb-[110px]">
+            <div className="max-w-[1200px] mx-auto px-5 md:px-9">
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12 items-start">
+                <Reveal>
+                  <h2
+                    className="font-mono uppercase text-accent m-0 mb-[22px] font-normal"
+                    style={{ fontSize: 11, letterSpacing: "0.22em" }}
+                  >
+                    Cities and public agencies
+                  </h2>
+                  <p
+                    className="text-ink m-0 max-w-[460px]"
+                    style={{ fontSize: 19, lineHeight: 1.6 }}
+                  >
+                    We produce for cities and public agencies with the same crew, care, and
+                    finish we bring to brands. For the City of Lancaster, that meant a
+                    commercial selling the city itself.
+                  </p>
+                </Reveal>
+                <Reveal delay={0.05}>
+                  <ProjectCard cs={LANCASTER} thumbnailUrl={thumbnails[LANCASTER.slug]} />
+                </Reveal>
+              </div>
+            </div>
+          </section>
+        )}
       </main>
       <Footer />
     </>

@@ -1,7 +1,13 @@
 # MMG Site — Session Recap
 Last updated: October 12, 2026
 
-## PR positioning pass on a preview, not live (Oct 12, 2026)
+## PR positioning pass SHIPPED (Oct 12, 2026)
+
+LIVE on www.makemovegrow.com at `7d4fb74`. Dennis approved the preview, and `main` and
+`if-redesign` were fast-forwarded to `pr-positioning-copy`. Checked in production: all 25 sitemap
+URLs return 200 with no placeholder text, and /copyright-policy returns a 308 to /. The notes below
+were written while the branch was still on the preview.
+
 
 Branch `pr-positioning-copy` is pushed (`3bdfab8`, plus this recap commit). `main` and `if-redesign`
 are still at `bc8cc28`, so production is unchanged. The full change list is in

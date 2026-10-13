@@ -31,6 +31,7 @@ export default function RelatedProjects({ items, thumbnails }: RelatedProjectsPr
                     src={thumbnails[item.slug]!}
                     alt={item.title}
                     className="absolute inset-0 h-full w-full object-cover"
+                    style={{ objectPosition: item.posterPosition }}
                     loading="lazy"
                   />
                 )}

@@ -112,6 +112,7 @@ export type CaseStudy = {
   event?: EventInfo; // rendered as Event schema when the work covers an event
   heroVideo?: { vimeoId: string; vimeoHash?: string };
   vertical?: boolean; // 9:16 film: the project page plays it in a tall, centered frame
+  posterPosition?: string; // CSS object-position for the cropped card poster, e.g. "50% 20%" keeps faces in a vertical frame
   youtubeId?: string; // YouTube only (trailers we do not host on Vimeo); project page embeds it, feed and slideshow ignore it
   bg: string; // gradient fallback for cards without video
   media: MediaItem[];
@@ -568,6 +569,7 @@ export const caseStudies: CaseStudy[] = [
       "MMG handled post production only. We took the footage and cut it into a vertical recap built for social, then finished it in house.",
     heroVideo: { vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" },
     vertical: true,
+    posterPosition: "50% 19%",
     bg: "linear-gradient(155deg,#2b1a20,#110a0d)",
     media: [{ type: "vimeo", vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" }],
     credits: placeholderCredits,
@@ -794,6 +796,8 @@ export const caseStudies: CaseStudy[] = [
       "Chera TV is the world's first vertical, high quality streaming platform. Its launch was celebrated with a red carpet party, captured on video by our team.",
     whatWeDid: "[PLACEHOLDER] What we handled at the Chera TV launch party.",
     heroVideo: { vimeoId: "1189774742", vimeoHash: "022e3fdcf7" },
+    vertical: true,
+    posterPosition: "50% 6%",
     bg: "linear-gradient(155deg,#241c2b,#0c0a10)",
     media: [{ type: "vimeo", vimeoId: "1189774742", vimeoHash: "022e3fdcf7" }],
     credits: placeholderCredits,

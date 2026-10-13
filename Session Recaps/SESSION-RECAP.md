@@ -1,5 +1,84 @@
 # MMG Site — Session Recap
-Last updated: October 12, 2026
+Last updated: October 13, 2026
+
+## SEO audit, service pages, speed pass (Oct 12 to 13, 2026)
+
+All LIVE on www.makemovegrow.com. main is at `ca814c1`, and origin matches.
+
+**SEO audit (claude-seo plugin v2.4.2).**
+- Scored 72/100. The report, action plan, PDF and findings are in `MMG Site/makemovegrow.com-audit/`.
+- The plugin is installed for Claude Code. After a restart, `/seo audit https://www.makemovegrow.com` re-runs it.
+
+**Email and indexing.**
+- dennis@ is used sitewide (Oct 12).
+- Dennis's own commit `46e836b` put hello@ back in the footer and general/press, and added the Instagram link and the light favicon.
+- The IndexNow key file is in `public/`.
+- The sitemap is submitted in Search Console (property `sc-domain:makemovegrow.com`).
+
+**Service pages (audit problem #1).** `src/lib/services.ts` holds all the copy. Pages:
+- `/services` (the hub)
+- `/services/red-carpet-video-coverage`
+- `/services/event-video-production`
+- `/services/brand-films-and-commercials`
+- `/services/corporate-video-orange-county`: built but `published: false`. It needs Irvine confirmed as the base city and at least one corporate example.
+
+Visibility (Dennis's decision):
+- No page on the site links to them: not the menus, not /work, not the project pages.
+- Search engines and AI tools find them through the sitemap, llms.txt and the Organization schema's offer URLs.
+- They were submitted to IndexNow and Bing, and indexing was requested in Search Console for all 4. Each one went into Google's priority crawl queue.
+
+Copy:
+- Lines marked `[PLACEHOLDER]` stay hidden until replaced.
+- Questions for Dennis are in `Session Recaps/SERVICE-PAGES-FACTS.md`: turnaround, crew sizes, interviewer, the Chera TV and NFL Pro Bowl details, and process claims to confirm.
+
+**Speed pass (`398503d`, then `5bec3c4`).**
+- `Reveal.tsx` no longer uses framer-motion; it's an IntersectionObserver plus a CSS transition.
+  - Content already on screen at load stays visible.
+  - Only blocks that start below the fold fade in.
+  - framer-motion remains only in StartProject.
+- Homepage hero (Dennis chose to keep video on phones):
+  - One Vimeo player at a time; the next slide's player arms after 4s.
+  - Each slide has a poster served through next/image.
+  - Slides render under a paper cover, so the intro looks the same but the poster paints at once.
+- Shared `components/VimeoBackground.tsx`: the player fades in when Vimeo's postMessage reports play. Used by both the hero and the homepage Feed.
+- The Feed now shows a poster under each video.
+- next/image serves AVIF. Related-project cards use 640px thumbnails.
+
+Measured, live mobile Lighthouse:
+
+| Page | Before | After |
+|---|---|---|
+| Homepage | 82 / 2.6s | 95–98 / 2.3–2.7s |
+| CRAVE project | 72 / 8.2s | 99–100 / 1.6–2.1s |
+
+Homepage weight: mobile 7.5 MB → 3.8 MB, desktop 34 MB → 16 MB.
+
+**Content.** 1212 Gateway by Catherine Paiz was removed from the Photography category. It stays under Brand and campaigns.
+
+**Open:**
+- Dennis's answers to `SERVICE-PAGES-FACTS.md`.
+- The corporate OC page.
+- Google Business Profile.
+- From the audit action plan:
+  - business city (LA or Irvine)
+  - phone number
+  - video upload dates
+  - Claude Impact Lab date
+  - copy for the 10 thin project pages
+  - testimonials
+  - social URLs
+- Remaining code fixes from `ACTION-PLAN.md`:
+  - /contact H1
+  - real sitemap lastmod dates
+  - security headers
+  - title and meta rewrites
+  - schema contactPoint and county areaServed
+  - llms.txt "J.C." splitter fix
+  - heading hierarchy
+  - not-found page
+- Re-export the 2 largest Augustinus Bader photos.
+- Check Search Console indexing for the service pages in a few days.
+- Note: the Mac's disk was nearly full on Oct 13. It had 141 MB free, and later about 11 GB.
 
 ## PR positioning pass SHIPPED (Oct 12, 2026)
 

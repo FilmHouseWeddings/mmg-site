@@ -1,5 +1,25 @@
 # MMG Site — Session Recap
-Last updated: October 6, 2026
+Last updated: October 12, 2026
+
+## PR positioning pass on a preview, not live (Oct 12, 2026)
+
+Branch `pr-positioning-copy` is pushed (`3bdfab8`, plus this recap commit). `main` and `if-redesign`
+are still at `bc8cc28`, so production is unchanged. The full change list is in
+`Session Recaps/IMPLEMENTATION-HANDOFF.md`.
+- Vercel built a preview (status: success). Open it from the Vercel dashboard (mmg-site, branch
+  `pr-positioning-copy`) or at mmg-site-git-pr-positioning-copy-dennis-s-projects-30cb4935.vercel.app
+  (needs a Vercel login).
+- `main` was merged into the branch. The hidden /privacy page (`78d843a`) is kept. /copyright-policy
+  is DELETED and redirects to `/`, which drops the real policy copy from `bc8cc28` (Dennis's call).
+- Checked in a scratch build: build and TypeScript pass, all 25 sitemap URLs return 200 with no
+  placeholder text, /privacy is noindex, /copyright-policy returns a 308, and /llms.txt, /robots.txt
+  and /opengraph-image respond. All three case-study pill hovers show the right stills, and phones
+  get no sideways scroll.
+- To ship: once Dennis approves the preview, merge `pr-positioning-copy` into `main` (and
+  `if-redesign`) and push.
+- `npm ci` fails because package-lock.json is out of sync (@emnapi). This is already true on main;
+  `npm install` and Vercel builds work.
+
 
 ## Copy and form pass (Oct 6, 2026)
 

@@ -71,7 +71,7 @@ export default async function ProjectPage({
   if (!cs || !cs.published) notFound();
 
   const related = getRelated(cs);
-  const relatedThumbnails = await getThumbnailsBySlug(related);
+  const relatedThumbnails = await getThumbnailsBySlug(related, 640); // cards render about 370px wide
   const secondaryMedia = cs.media.slice(1);
   const url = `https://www.makemovegrow.com/project/${cs.slug}`;
   const posterUrl = cs.heroVideo

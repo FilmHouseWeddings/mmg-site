@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // AVIF first: typically 20 to 30% smaller than WebP for the same photo.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "i.vimeocdn.com" }],
   },
   async redirects() {

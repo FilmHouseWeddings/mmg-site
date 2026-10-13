@@ -5,12 +5,13 @@ import type { CaseStudy } from "@/lib/content";
 // returns null on any failure so callers fall back to the bg gradient.
 export async function getVimeoThumbnail(
   vimeoId: string,
-  vimeoHash?: string
+  vimeoHash?: string,
+  width = 1280
 ): Promise<string | null> {
   const videoUrl = `https://vimeo.com/${vimeoId}${vimeoHash ? `/${vimeoHash}` : ""}`;
   try {
     const res = await fetch(
-      `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(videoUrl)}&width=1280`,
+      `https://vimeo.com/api/oembed.json?url=${encodeURIComponent(videoUrl)}&width=${width}`,
       { next: { revalidate: 86400 } }
     );
     if (!res.ok) return null;
@@ -22,15 +23,18 @@ export async function getVimeoThumbnail(
 }
 
 // Poster frames for a list of case studies, keyed by slug.
+// `width` should match how large the cards render; small cards don't need
+// the 1280px frame.
 export async function getThumbnailsBySlug(
-  items: CaseStudy[]
+  items: CaseStudy[],
+  width = 1280
 ): Promise<Record<string, string | null>> {
   const entries = await Promise.all(
     items.map(async (cs) => {
       if (cs.poster) return [cs.slug, cs.poster] as const;
       const video = cs.heroVideo;
       const url = video
-        ? await getVimeoThumbnail(video.vimeoId, video.vimeoHash)
+        ? await getVimeoThumbnail(video.vimeoId, video.vimeoHash, width)
         : cs.youtubeId
           ? `https://i.ytimg.com/vi/${cs.youtubeId}/hqdefault.jpg`
           : null;

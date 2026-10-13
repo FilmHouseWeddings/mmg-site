@@ -6,8 +6,14 @@ import Feed from "@/components/Feed";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
+import { heroSlideCaseStudies } from "@/lib/content";
+import { getThumbnailsBySlug } from "@/lib/vimeo";
 
-export default function Home() {
+export default async function Home() {
+  // Hero posters: a still per slide so the hero is never an empty box while
+  // the Vimeo player boots.
+  const posters = await getThumbnailsBySlug(heroSlideCaseStudies);
+
   return (
     <>
       <Header />
@@ -15,7 +21,7 @@ export default function Home() {
         <h1 className="sr-only">
           MMG: content experts for brands, PR firms, agencies, and event teams in Los Angeles and Orange County
         </h1>
-        <HeroSlideshow />
+        <HeroSlideshow posters={posters} />
         <TrustedBy />
         <BrandStatement />
         <Feed />

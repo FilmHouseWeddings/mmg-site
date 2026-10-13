@@ -861,7 +861,7 @@ const FEED_ORDER = [
   "claude-impact-lab-los-angeles",
   "nfl-pro-bowl-recap",
   "chera-tv-launch-party",
-  "crave-power-your-day",
+  "1212-gateway-brand-film",
 ];
 
 export const feedCaseStudies: CaseStudy[] = FEED_ORDER.map((slug) =>

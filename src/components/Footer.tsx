@@ -39,11 +39,11 @@ export default function Footer() {
         {/* Row 2: mailto + socials */}
         <div className="flex justify-between items-center gap-6 flex-wrap">
           <a
-            href="mailto:hello@makemovegrow.com"
+            href="mailto:dennis@makemovegrow.com"
             className="font-display text-ink no-underline border-b border-transparent hover:text-accent hover:border-accent transition-[color,border-color] duration-[250ms]"
             style={{ fontSize: "clamp(18px,2vw,24px)", letterSpacing: "-0.01em" }}
           >
-            hello@makemovegrow.com
+            dennis@makemovegrow.com
           </a>
 
           {SHOW_SOCIALS && (

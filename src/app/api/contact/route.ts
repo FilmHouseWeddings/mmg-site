@@ -7,12 +7,11 @@ import { NextResponse } from "next/server";
 // Defaults are the sandbox-safe pair: Resend's shared sender only delivers to
 // the address the Resend account is registered under, and anything else comes
 // back 403. Once makemovegrow.com is verified in Resend, set
-//   CONTACT_FROM_EMAIL = "MMG <hello@makemovegrow.com>"
+//   CONTACT_FROM_EMAIL = "MMG <hello@makemovegrow.com>"  (send-only; no inbox needed)
 //   CONTACT_TO_EMAIL   = "dennis@makemovegrow.com"
 // and inquiries land where they belong, out of the spam folder.
 //
-// Server-side only. These addresses are never rendered into client HTML — the
-// contact page reveals its address from char codes for the same reason.
+// Server-side only. The sender address is never rendered into client HTML.
 const FROM_EMAIL =
   process.env.CONTACT_FROM_EMAIL ?? "MMG Contact Form <onboarding@resend.dev>";
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "dennis@filmhouseweddings.com";

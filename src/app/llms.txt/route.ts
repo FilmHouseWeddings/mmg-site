@@ -34,7 +34,7 @@ ${work}
 ## Pages
 - [What We Do](${SITE_URL}/work): services, categories, and case studies
 - [About](${SITE_URL}/about): who we are and how we work
-- [Contact](${SITE_URL}/contact): start a project (hello@makemovegrow.com)
+- [Contact](${SITE_URL}/contact): start a project (dennis@makemovegrow.com)
 `;
 
   return new Response(body, {

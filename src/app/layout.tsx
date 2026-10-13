@@ -63,7 +63,7 @@ export default function RootLayout({
                   alternateName: "Make. Move. Grow.",
                   url: SITE_URL,
                   logo: `${SITE_URL}/icon.png`,
-                  email: "hello@makemovegrow.com",
+                  email: "dennis@makemovegrow.com",
                   description: SITE_LONG_DESCRIPTION,
                   address: {
                     "@type": "PostalAddress",

@@ -60,7 +60,7 @@ export default function ContactForm() {
         data.message,
       ].join("\n");
       setRescue(
-        `mailto:hello@makemovegrow.com?subject=${encodeURIComponent(
+        `mailto:dennis@makemovegrow.com?subject=${encodeURIComponent(
           `New inquiry from ${data.name}`
         )}&body=${encodeURIComponent(body)}`
       );

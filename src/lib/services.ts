@@ -13,7 +13,7 @@ export type ServiceFaq = { q: string; a: string };
 export type ServicePage = {
   slug: string;
   name: string; // short name for the hub and breadcrumbs
-  linkLabel: string; // link text used on project pages and /work
+  linkLabel: string; // link text on the hub, other service pages, and llms.txt
   metaTitle: string; // rendered as "<metaTitle> | MMG"; keep it under 55 characters
   metaDescription: string; // under 160 characters
   kicker: string; // small accent label above the H1
@@ -24,14 +24,14 @@ export type ServicePage = {
   process: { label: string; text: string }[];
   turnaround: string[];
   sections?: Section[]; // extra long form blocks, e.g. same day recaps
-  proofSlugs: string[]; // case studies shown as cards; their pages link back here
+  proofSlugs: string[]; // case studies shown as cards
   proofStats?: { label: string; text: string }[]; // numbers already published in case studies
   testimonial?: { quote: string; name: string; title: string }; // only a real, approved quote
   faqs: ServiceFaq[];
   serviceType: string;
   areaServed: ServiceArea[];
-  servicesListMatch: string[]; // entries in content.ts `services` that link here from /work
-  published: boolean; // false = 404, no sitemap entry, no inbound links
+  servicesListMatch: string[]; // entries in content.ts `services` this page covers (schema only)
+  published: boolean; // false = 404, no sitemap or llms.txt entry
 };
 
 const LA: ServiceArea = { type: "City", name: "Los Angeles" };
@@ -305,13 +305,8 @@ export function getServicePage(slug: string): ServicePage | undefined {
   return publishedServicePages.find((s) => s.slug === slug);
 }
 
-// Published service pages that use this case study as proof. Drives the
-// "We do this as a service" line on project pages.
-export function getServicesForCaseStudy(caseStudySlug: string): ServicePage[] {
-  return publishedServicePages.filter((s) => s.proofSlugs.includes(caseStudySlug));
-}
-
-// Link target for an entry in content.ts `services`, if a page covers it.
+// Page for an entry in content.ts `services`, if one exists. Used only in the
+// Organization schema: the pages are searchable but not linked from the site.
 export function getServiceHref(serviceName: string): string | undefined {
   const page = publishedServicePages.find((s) => s.servicesListMatch.includes(serviceName));
   return page ? `/services/${page.slug}` : undefined;

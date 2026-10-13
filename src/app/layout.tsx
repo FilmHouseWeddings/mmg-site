@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { services } from "@/lib/content";
+import { getServiceHref } from "@/lib/services";
 import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, SITE_LONG_DESCRIPTION } from "@/lib/seo";
 
 const archivo = Archivo({
@@ -89,10 +90,20 @@ export default function RootLayout({
                   hasOfferCatalog: {
                     "@type": "OfferCatalog",
                     name: "Services",
-                    itemListElement: services.map((name) => ({
-                      "@type": "Offer",
-                      itemOffered: { "@type": "Service", name },
-                    })),
+                    // Services with their own page point to it here. The pages
+                    // are deliberately unlinked in the visible site, so this
+                    // and the sitemap are how search engines tie them to MMG.
+                    itemListElement: services.map((name) => {
+                      const href = getServiceHref(name);
+                      return {
+                        "@type": "Offer",
+                        itemOffered: {
+                          "@type": "Service",
+                          name,
+                          ...(href ? { url: `${SITE_URL}${href}` } : {}),
+                        },
+                      };
+                    }),
                   },
                   // No `foundingDate`: the 15 years is the founder's
                   // production experience, not the age of the company.

@@ -16,7 +16,6 @@ import PhotoCollage from "@/components/PhotoCollage";
 import RelatedProjects from "@/components/RelatedProjects";
 import ProjectSections from "@/components/ProjectSections";
 import { getThumbnailsBySlug, getVimeoThumbnail } from "@/lib/vimeo";
-import { getServicesForCaseStudy } from "@/lib/services";
 
 export async function generateStaticParams() {
   return publishedCaseStudies.map((cs) => ({ slug: cs.slug }));
@@ -72,7 +71,6 @@ export default async function ProjectPage({
   if (!cs || !cs.published) notFound();
 
   const related = getRelated(cs);
-  const serviceLinks = getServicesForCaseStudy(cs.slug);
   const relatedThumbnails = await getThumbnailsBySlug(related);
   const secondaryMedia = cs.media.slice(1);
   const url = `https://www.makemovegrow.com/project/${cs.slug}`;
@@ -289,23 +287,6 @@ export default async function ProjectPage({
         {hasRealCredits(cs.credits) && (
           <div className="mt-16 md:mt-24">
             <CreditsBlock credits={cs.credits} />
-          </div>
-        )}
-
-        {serviceLinks.length > 0 && (
-          <div className="mt-14 md:mt-20 border-t border-line-2 pt-6">
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted mb-2">
-              We do this as a service
-            </p>
-            {serviceLinks.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/services/${s.slug}`}
-                className="block font-display font-semibold text-[19px] text-ink hover:text-accent transition-colors duration-200 mt-1"
-              >
-                {s.linkLabel} →
-              </Link>
-            ))}
           </div>
         )}
 

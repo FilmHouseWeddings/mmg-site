@@ -687,7 +687,7 @@ export const caseStudies: CaseStudy[] = [
     title: "1212 Gateway by Catherine Paiz",
     client: "1212 Gateway",
     roleLine: "Brand launch film for 1212 Gateway",
-    categories: ["brand-campaigns", "photography"],
+    categories: ["brand-campaigns"],
     // TODO (Dennis): year, what we handled, results.
     // Instagram @ownthelight credits this film to Producer Dennis Mulyar and DP Sam Windell.
     metaDescription:

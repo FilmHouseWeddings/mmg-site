@@ -27,6 +27,7 @@ export async function getThumbnailsBySlug(
 ): Promise<Record<string, string | null>> {
   const entries = await Promise.all(
     items.map(async (cs) => {
+      if (cs.poster) return [cs.slug, cs.poster] as const;
       const video = cs.heroVideo;
       const url = video
         ? await getVimeoThumbnail(video.vimeoId, video.vimeoHash)

@@ -112,6 +112,7 @@ export type CaseStudy = {
   event?: EventInfo; // rendered as Event schema when the work covers an event
   heroVideo?: { vimeoId: string; vimeoHash?: string };
   vertical?: boolean; // 9:16 film: the project page plays it in a tall, centered frame
+  poster?: string; // card thumbnail override, e.g. a still for a project with no video
   posterPosition?: string; // CSS object-position for the cropped card poster, e.g. "50% 20%" keeps faces in a vertical frame
   youtubeId?: string; // YouTube only (trailers we do not host on Vimeo); project page embeds it, feed and slideshow ignore it
   bg: string; // gradient fallback for cards without video
@@ -667,6 +668,7 @@ export const caseStudies: CaseStudy[] = [
     ],
     bg: "linear-gradient(155deg,#2a1a1a,#100a0a)",
     media: [],
+    poster: "/photos/jcpenney/jcp-soldier-window.webp",
     photos: jcpenneyPhotos,
     photosAtTop: true,
     photosLabel: "Stills",
@@ -799,7 +801,7 @@ export const caseStudies: CaseStudy[] = [
     whatWeDid: "[PLACEHOLDER] What we handled at the Chera TV launch party.",
     heroVideo: { vimeoId: "1189774742", vimeoHash: "022e3fdcf7" },
     vertical: true,
-    posterPosition: "50% 6%",
+    posterPosition: "50% 11%",
     bg: "linear-gradient(155deg,#241c2b,#0c0a10)",
     media: [{ type: "vimeo", vimeoId: "1189774742", vimeoHash: "022e3fdcf7" }],
     credits: placeholderCredits,

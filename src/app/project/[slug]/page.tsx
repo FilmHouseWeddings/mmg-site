@@ -36,11 +36,11 @@ export async function generateMetadata({
   const description =
     cs.metaDescription ??
     (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis);
-  const poster = cs.heroVideo
+  const poster = cs.poster ?? (cs.heroVideo
     ? await getVimeoThumbnail(cs.heroVideo.vimeoId, cs.heroVideo.vimeoHash)
     : cs.youtubeId
       ? `https://i.ytimg.com/vi/${cs.youtubeId}/hqdefault.jpg`
-      : (cs.photos?.[0]?.src ?? null);
+      : (cs.photos?.[0]?.src ?? null));
 
   return {
     title: cs.title,

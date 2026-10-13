@@ -682,24 +682,26 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "1212-gateway-brand-film",
-    title: "1212 Gateway | Brand Film",
-    client: "1212 Gateway",
-    roleLine: "Beauty brand film for 1212 Gateway",
+    title: "12/12 Gateway by Catherine Paiz",
+    client: "12/12 Gateway",
+    roleLine: "Brand launch film for 12/12 Gateway",
     categories: ["brand-campaigns", "photography"],
-    // TODO (Dennis): confirm the client name and spelling, add the Vimeo link, year, synopsis, results.
+    // TODO (Dennis): year, what we handled, results.
     // Instagram @ownthelight credits this film to Producer Dennis Mulyar and DP Sam Windell.
-    synopsis: "[PLACEHOLDER] Beauty campaign brand film for 1212 Gateway.",
-    whatWeDid: "[PLACEHOLDER] What we handled on the 1212 Gateway brand film.",
-    bg: "linear-gradient(155deg,#2a1d22,#120b0e)",
-    media: [],
+    metaDescription:
+      "Brand launch film for 12/12 Gateway, the cosmetics brand by Catherine Paiz.",
+    synopsis:
+      "12/12 Gateway is a cosmetics brand by Catherine Paiz. This film introduced the brand at its launch.",
+    whatWeDid: "[PLACEHOLDER] What we handled on the 12/12 Gateway launch film.",
+    heroVideo: { vimeoId: "1235313120", vimeoHash: "772fd51a96" },
+    bg: "linear-gradient(155deg,#141a2b,#090b12)",
+    media: [{ type: "vimeo", vimeoId: "1235313120", vimeoHash: "772fd51a96" }],
     credits: placeholderCredits,
     related: ["augustinus-bader-the-body-knows", "calvin-klein-mycalvins", "crave-4orce-goldberg"],
     featured: false,
     span: 6,
     ratio: "16/9",
-    published: false, // flip to true once heroVideo + media are added below
-    // heroVideo: { vimeoId: "", vimeoHash: "" },
-    // media: [{ type: "vimeo", vimeoId: "", vimeoHash: "" }],
+    published: true,
   },
   {
     slug: "youtube-vs-tiktok-boxing-trailer",

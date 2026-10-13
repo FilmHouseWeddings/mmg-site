@@ -111,6 +111,7 @@ export type CaseStudy = {
   sections?: Section[]; // optional long-form blocks under "What We Did"
   event?: EventInfo; // rendered as Event schema when the work covers an event
   heroVideo?: { vimeoId: string; vimeoHash?: string };
+  vertical?: boolean; // 9:16 film: the project page plays it in a tall, centered frame
   youtubeId?: string; // YouTube only (trailers we do not host on Vimeo); project page embeds it, feed and slideshow ignore it
   bg: string; // gradient fallback for cards without video
   media: MediaItem[];
@@ -547,6 +548,30 @@ export const caseStudies: CaseStudy[] = [
     media: [{ type: "vimeo", vimeoId: "1140164075", vimeoHash: "4250270e36" }],
     credits: placeholderCredits,
     related: ["emmys-governors-ball", "claude-impact-lab-los-angeles", "city-of-lancaster-commercial"],
+    featured: false,
+    span: 6,
+    ratio: "16/9",
+    published: true,
+  },
+  {
+    slug: "anastasia-beverly-hills-oscars",
+    title: "Anastasia Beverly Hills x Oscars",
+    client: "Anastasia Beverly Hills",
+    roleLine: "Post production for Anastasia Beverly Hills",
+    categories: ["social-short-form"],
+    // MMG did post production only on this one; we did not shoot it. TODO (Dennis): year, what the edit covered (color, sound, graphics?).
+    metaDescription:
+      "Vertical Oscars event recap for Anastasia Beverly Hills. MMG handled post production, cutting the footage into a recap built for social.",
+    synopsis:
+      "Anastasia Beverly Hills teamed up with the Oscars and needed a vertical event recap ready for social.",
+    whatWeDid:
+      "MMG handled post production only. We took the footage and cut it into a vertical recap built for social, then finished it in house.",
+    heroVideo: { vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" },
+    vertical: true,
+    bg: "linear-gradient(155deg,#2b1a20,#110a0d)",
+    media: [{ type: "vimeo", vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" }],
+    credits: placeholderCredits,
+    related: ["emmys-governors-ball", "nfl-pro-bowl-recap", "chera-tv-launch-party"],
     featured: false,
     span: 6,
     ratio: "16/9",

@@ -8,6 +8,7 @@ interface CaseVideoProps {
   bg: string;
   className?: string;
   hero?: boolean;
+  vertical?: boolean;
 }
 
 function PlayGlyph() {
@@ -34,6 +35,7 @@ export default function CaseVideo({
   bg,
   className = "",
   hero = false,
+  vertical = false,
 }: CaseVideoProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -60,7 +62,7 @@ export default function CaseVideo({
   return (
     <div
       ref={ref}
-      className={`group relative aspect-video w-full overflow-hidden ${className}`}
+      className={`group relative ${vertical ? "aspect-[9/16]" : "aspect-video"} w-full overflow-hidden ${className}`}
       style={{ background: bg }}
     >
       {vimeoId && inView ? (

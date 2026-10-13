@@ -175,6 +175,8 @@ export default async function ProjectPage({
               vimeoHash={cs.heroVideo.vimeoHash}
               bg={cs.bg}
               hero
+              vertical={cs.vertical}
+              className={cs.vertical ? "mx-auto max-w-[400px]" : ""}
             />
           </Reveal>
         )}

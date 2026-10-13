@@ -42,7 +42,7 @@ export default function ProjectCard({
             loading="lazy"
           />
         )}
-        <PlayGlyph />
+        {(cs.heroVideo || cs.youtubeId) && <PlayGlyph />}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{ background: "rgba(22,22,27,.35)" }}

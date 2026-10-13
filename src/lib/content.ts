@@ -682,17 +682,17 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "1212-gateway-brand-film",
-    title: "12/12 Gateway by Catherine Paiz",
-    client: "12/12 Gateway",
-    roleLine: "Brand launch film for 12/12 Gateway",
+    title: "1212 Gateway by Catherine Paiz",
+    client: "1212 Gateway",
+    roleLine: "Brand launch film for 1212 Gateway",
     categories: ["brand-campaigns", "photography"],
     // TODO (Dennis): year, what we handled, results.
     // Instagram @ownthelight credits this film to Producer Dennis Mulyar and DP Sam Windell.
     metaDescription:
-      "Brand launch film for 12/12 Gateway, the cosmetics brand by Catherine Paiz.",
+      "Brand launch film for 1212 Gateway, the cosmetics brand by Catherine Paiz.",
     synopsis:
-      "12/12 Gateway is a cosmetics brand by Catherine Paiz. This film introduced the brand at its launch.",
-    whatWeDid: "[PLACEHOLDER] What we handled on the 12/12 Gateway launch film.",
+      "1212 Gateway is a cosmetics brand by Catherine Paiz. This film introduced the brand at its launch.",
+    whatWeDid: "[PLACEHOLDER] What we handled on the 1212 Gateway launch film.",
     heroVideo: { vimeoId: "1235313120", vimeoHash: "772fd51a96" },
     bg: "linear-gradient(155deg,#141a2b,#090b12)",
     media: [{ type: "vimeo", vimeoId: "1235313120", vimeoHash: "772fd51a96" }],

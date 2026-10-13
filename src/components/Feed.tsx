@@ -1,10 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { feedCaseStudies, categories, type CaseStudy } from "@/lib/content";
 import { Fragment } from "react";
 import Reveal from "./Reveal";
+import VimeoBackground from "./VimeoBackground";
 
 function categoryLabel(cs: CaseStudy): string {
   const slug = cs.categories[0];
@@ -13,7 +15,7 @@ function categoryLabel(cs: CaseStudy): string {
   return match ? match.label : slug;
 }
 
-function FeedMedia({ cs }: { cs: CaseStudy }) {
+function FeedMedia({ cs, poster }: { cs: CaseStudy; poster?: string | null }) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -46,20 +48,30 @@ function FeedMedia({ cs }: { cs: CaseStudy }) {
       className="relative aspect-video w-full overflow-hidden"
       style={{ background: cs.bg }}
     >
-      {vimeo && inView && (
-        <iframe
-          src={`https://player.vimeo.com/video/${vimeo.vimeoId}?h=${vimeo.vimeoHash ?? ""}&badge=0&autopause=0&autoplay=1&muted=1&loop=1&background=1`}
-          loading="lazy"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          className="absolute inset-0 h-full w-full"
+      {/* Still shown right away; the video fades in over it once playing. */}
+      {poster && (
+        <Image
+          src={poster}
+          alt=""
+          aria-hidden="true"
+          fill
+          sizes="(min-width: 1024px) 49vw, 100vw"
+          className="object-cover"
+          style={{ objectPosition: cs.posterPosition }}
         />
+      )}
+      {vimeo && inView && (
+        <VimeoBackground vimeoId={vimeo.vimeoId} vimeoHash={vimeo.vimeoHash} />
       )}
     </div>
   );
 }
 
-export default function Feed() {
+export default function Feed({
+  posters = {},
+}: {
+  posters?: Record<string, string | null>;
+}) {
   return (
     <section className="pt-20 md:pt-28 pb-20 md:pb-28">
       <div className="max-w-[1400px] mx-auto px-4 md:px-9 flex flex-col gap-14 lg:gap-24">
@@ -74,7 +86,7 @@ export default function Feed() {
               <Reveal
                 className={`w-full lg:w-[49%] ${reversed ? "lg:order-2" : "lg:order-1"}`}
               >
-                <FeedMedia cs={cs} />
+                <FeedMedia cs={cs} poster={posters[cs.slug]} />
               </Reveal>
 
               <Reveal

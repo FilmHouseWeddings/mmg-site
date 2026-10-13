@@ -6,13 +6,16 @@ import Feed from "@/components/Feed";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
-import { heroSlideCaseStudies } from "@/lib/content";
+import { heroSlideCaseStudies, feedCaseStudies } from "@/lib/content";
 import { getThumbnailsBySlug } from "@/lib/vimeo";
 
 export default async function Home() {
-  // Hero posters: a still per slide so the hero is never an empty box while
-  // the Vimeo player boots.
-  const posters = await getThumbnailsBySlug(heroSlideCaseStudies);
+  // A still per hero slide and feed item, so neither is an empty box while
+  // its Vimeo player boots.
+  const [posters, feedPosters] = await Promise.all([
+    getThumbnailsBySlug(heroSlideCaseStudies),
+    getThumbnailsBySlug(feedCaseStudies),
+  ]);
 
   return (
     <>
@@ -24,7 +27,7 @@ export default async function Home() {
         <HeroSlideshow posters={posters} />
         <TrustedBy />
         <BrandStatement />
-        <Feed />
+        <Feed posters={feedPosters} />
         <section className="pb-20 md:pb-28">
           <div className="max-w-[1400px] mx-auto px-4 md:px-9">
             <Link

@@ -32,7 +32,11 @@ export async function getThumbnailsBySlug(
   const entries = await Promise.all(
     items.map(async (cs) => {
       if (cs.poster) return [cs.slug, cs.poster] as const;
-      const video = cs.heroVideo;
+      const video =
+        cs.heroVideo ??
+        (cs.media.find((m) => m.type === "vimeo") as
+          | { type: "vimeo"; vimeoId: string; vimeoHash?: string }
+          | undefined);
       const url = video
         ? await getVimeoThumbnail(video.vimeoId, video.vimeoHash, width)
         : cs.youtubeId

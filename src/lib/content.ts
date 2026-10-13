@@ -570,7 +570,7 @@ export const caseStudies: CaseStudy[] = [
       "MMG handled post production only. We took the footage and cut it into a vertical recap built for social, then finished it in house.",
     heroVideo: { vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" },
     vertical: true,
-    posterPosition: "50% 19%",
+    poster: "/photos/anastasia/abh-oscars-gifting-house.webp", // Oscars Gifting House floral display, cropped 16:9 from the film
     bg: "linear-gradient(155deg,#2b1a20,#110a0d)",
     media: [{ type: "vimeo", vimeoId: "1234162900", vimeoHash: "0c45cb4bd7" }],
     credits: placeholderCredits,

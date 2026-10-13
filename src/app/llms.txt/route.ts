@@ -1,5 +1,6 @@
 import { clients, publishedCaseStudies, isPlaceholder, services } from "@/lib/content";
 import { SITE_URL, SITE_LONG_DESCRIPTION } from "@/lib/seo";
+import { publishedServicePages } from "@/lib/services";
 
 // Plain text summary for AI answer engines (llms.txt convention). Generated from
 // content.ts so it always matches the live site.
@@ -24,6 +25,9 @@ Brands, PR firms, agencies, event teams, and public agencies in Los Angeles, Ora
 
 ## Services
 ${services.map((s) => `- ${s}`).join("\n")}
+
+## Service pages
+${publishedServicePages.map((s) => `- [${s.linkLabel}](${SITE_URL}/services/${s.slug}): ${s.answer}`).join("\n")}
 
 ## Selected clients
 ${clients.join(", ")}

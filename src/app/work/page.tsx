@@ -6,6 +6,8 @@ import Pillars, { type Pillar, type PillarCategory } from "@/components/Pillars"
 import CaseStudyStrip, { type StripCard } from "@/components/CaseStudyStrip";
 import { categories, caseStudies, publishedCaseStudies, services } from "@/lib/content";
 import { getVimeoThumbnail } from "@/lib/vimeo";
+import { getServiceHref } from "@/lib/services";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "What We Do",
@@ -127,7 +129,9 @@ export default async function WorkPage() {
             </Reveal>
             <Reveal delay={0.05}>
               <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 list-none m-0 p-0 border-b border-line">
-                {services.map((service, i) => (
+                {services.map((service, i) => {
+                  const href = getServiceHref(service);
+                  return (
                   <li
                     key={service}
                     className="flex items-baseline gap-5 border-t border-line py-5"
@@ -138,14 +142,27 @@ export default async function WorkPage() {
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span
-                      className="font-display font-semibold text-ink"
-                      style={{ fontSize: "clamp(22px,2.6vw,30px)", letterSpacing: "-0.01em" }}
-                    >
-                      {service}
-                    </span>
+                    {/* Services with their own page link to it; the list looks
+                        the same until hover. */}
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="font-display font-semibold text-ink hover:text-accent transition-colors duration-200 no-underline"
+                        style={{ fontSize: "clamp(22px,2.6vw,30px)", letterSpacing: "-0.01em" }}
+                      >
+                        {service}
+                      </Link>
+                    ) : (
+                      <span
+                        className="font-display font-semibold text-ink"
+                        style={{ fontSize: "clamp(22px,2.6vw,30px)", letterSpacing: "-0.01em" }}
+                      >
+                        {service}
+                      </span>
+                    )}
                   </li>
-                ))}
+                  );
+                })}
               </ul>
             </Reveal>
           </div>

@@ -64,6 +64,7 @@ export default function RootLayout({
                   url: SITE_URL,
                   logo: `${SITE_URL}/icon.png`,
                   email: "dennis@makemovegrow.com",
+                  sameAs: ["https://www.instagram.com/makemovegrow/"],
                   description: SITE_LONG_DESCRIPTION,
                   address: {
                     "@type": "PostalAddress",

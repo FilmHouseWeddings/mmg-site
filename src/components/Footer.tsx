@@ -1,6 +1,8 @@
 import Link from "next/link";
 
-// Flip to true once real social URLs replace the "#" hrefs below.
+const INSTAGRAM_URL = "https://www.instagram.com/makemovegrow/";
+
+// Flip to true once real YouTube/LinkedIn URLs replace the "#" hrefs below.
 const SHOW_SOCIALS = false;
 
 export default function Footer() {
@@ -39,19 +41,19 @@ export default function Footer() {
         {/* Row 2: mailto + socials */}
         <div className="flex justify-between items-center gap-6 flex-wrap">
           <a
-            href="mailto:dennis@makemovegrow.com"
+            href="mailto:hello@makemovegrow.com"
             className="font-display text-ink no-underline border-b border-transparent hover:text-accent hover:border-accent transition-[color,border-color] duration-[250ms]"
             style={{ fontSize: "clamp(18px,2vw,24px)", letterSpacing: "-0.01em" }}
           >
-            dennis@makemovegrow.com
+            hello@makemovegrow.com
           </a>
 
-          {SHOW_SOCIALS && (
           <div className="flex items-center gap-5">
-            {/* TODO: real social URLs from Dennis */}
             <a
-              href="#"
-              aria-label="Instagram"
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="MMG on Instagram"
               className="text-ink hover:text-accent transition-colors duration-[250ms]"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +62,9 @@ export default function Footer() {
                 <circle cx="14.7" cy="5.3" r="1.1" fill="currentColor" />
               </svg>
             </a>
+            {SHOW_SOCIALS && (
+            <>
+            {/* TODO: real social URLs from Dennis */}
             <a
               href="#"
               aria-label="YouTube"
@@ -85,8 +90,9 @@ export default function Footer() {
                 />
               </svg>
             </a>
+            </>
+            )}
           </div>
-          )}
         </div>
 
         {/* Bottom line */}

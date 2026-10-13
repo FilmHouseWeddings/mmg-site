@@ -77,7 +77,7 @@ export default function ContactPage() {
                   General Inquiry / Press
                 </div>
                 <a
-                  href="mailto:dennis@makemovegrow.com"
+                  href="mailto:hello@makemovegrow.com"
                   className="font-display font-semibold text-ink no-underline pb-1 hover:text-accent transition-colors duration-[250ms]"
                   style={{
                     fontSize: "clamp(20px,2.6vw,28px)",
@@ -85,7 +85,7 @@ export default function ContactPage() {
                     borderBottom: "1px solid #CB2138",
                   }}
                 >
-                  dennis@makemovegrow.com
+                  hello@makemovegrow.com
                 </a>
               </div>
             </Reveal>

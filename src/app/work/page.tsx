@@ -3,20 +3,22 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import Pillars, { type Pillar, type PillarCategory } from "@/components/Pillars";
-import ProjectCard from "@/components/ProjectCard";
-import { categories, caseStudies } from "@/lib/content";
-import { getThumbnailsBySlug } from "@/lib/vimeo";
+import CaseStudyStrip, { type StripCard } from "@/components/CaseStudyStrip";
+import { categories, caseStudies, publishedCaseStudies, services } from "@/lib/content";
+import { getVimeoThumbnail } from "@/lib/vimeo";
 
 export const metadata: Metadata = {
   title: "What We Do",
+  description:
+    "Content experts for brands, PR firms, agencies, and event teams: event and launch coverage, red carpet interviews, same day recaps, cinematic commercials, brand films, and photography. Los Angeles and Orange County.",
 };
 
-// Preview footage per category pill. live-action is still cross-assigned
-// ([PLACEHOLDER]) — replace with real live-action footage when available.
+// Preview footage per category pill. Pills without an override fall back to the
+// first project in that category; empty ones show the gradient until work lands.
 const PREVIEW_OVERRIDES: Record<string, string> = {
-  branded: "crave-4orce-goldberg",
-  "event-coverage": "emmys-governors-ball",
-  "live-action": "adizero-lightest-cleat",
+  "events-launches": "emmys-governors-ball",
+  "brand-campaigns": "crave-4orce-goldberg",
+  "fashion-apparel": "adizero-lightest-cleat",
 };
 
 // Preview video/gradient per category — override slug (if set) → first case
@@ -43,25 +45,32 @@ const pillars: Pillar[] = [
   {
     heading: "content creation",
     sentence:
-      "We handle the whole thing, filming, editing, and delivery, so you get a finished video ready to post or play.",
+      "We back up your team on events, launches, and press moments. We handle filming, editing, and delivery, so you get finished video and photo ready to post or play.",
     categorySlugs: categories.map((cat) => cat.slug),
   },
 ];
 
-const SERVICES = [
-  "Brand films",
-  "Event coverage",
-  "Photography",
-  "Motion graphics",
-  "Social cutdowns",
-  "Live broadcast",
-];
 
-// Public sector proof point for the Cities and public agencies block.
-const LANCASTER = caseStudies.find((cs) => cs.slug === "city-of-lancaster-commercial");
+
+// Every pill must show something on hover: its own stills, or failing that a
+// frame from its video.
+async function buildStripCards(): Promise<StripCard[]> {
+  return Promise.all(
+    publishedCaseStudies
+      .filter((cs) => cs.caseStudy)
+      .map(async (cs) => {
+        let photos = cs.stripPhotos ?? [];
+        if (photos.length === 0 && cs.heroVideo) {
+          const poster = await getVimeoThumbnail(cs.heroVideo.vimeoId, cs.heroVideo.vimeoHash);
+          if (poster) photos = [{ src: poster, alt: cs.title, w: 1280, h: 720 }];
+        }
+        return { slug: cs.slug, client: cs.client, photos };
+      })
+  );
+}
 
 export default async function WorkPage() {
-  const thumbnails = LANCASTER ? await getThumbnailsBySlug([LANCASTER]) : {};
+  const stripCards = await buildStripCards();
 
   return (
     <>
@@ -99,8 +108,14 @@ export default async function WorkPage() {
         {/* Pillars */}
         <Pillars pillars={pillars} categories={previewCategories} />
 
+        {/* Hairline rule */}
+        <div style={{ height: 1, background: "rgba(22,22,27,.12)" }} />
+
+        {/* Case studies */}
+        <CaseStudyStrip cards={stripCards} />
+
         {/* Services */}
-        <section className="pb-[110px]">
+        <section className="pt-[40px] pb-[110px]">
           <div className="max-w-[1200px] mx-auto px-5 md:px-9">
             <Reveal>
               <h2
@@ -112,7 +127,7 @@ export default async function WorkPage() {
             </Reveal>
             <Reveal delay={0.05}>
               <ul className="grid grid-cols-1 md:grid-cols-2 md:gap-x-10 list-none m-0 p-0 border-b border-line">
-                {SERVICES.map((service, i) => (
+                {services.map((service, i) => (
                   <li
                     key={service}
                     className="flex items-baseline gap-5 border-t border-line py-5"
@@ -135,35 +150,6 @@ export default async function WorkPage() {
             </Reveal>
           </div>
         </section>
-
-        {/* Cities and public agencies */}
-        {LANCASTER && (
-          <section className="pb-[110px]">
-            <div className="max-w-[1200px] mx-auto px-5 md:px-9">
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12 items-start">
-                <Reveal>
-                  <h2
-                    className="font-mono uppercase text-accent m-0 mb-[22px] font-normal"
-                    style={{ fontSize: 11, letterSpacing: "0.22em" }}
-                  >
-                    Cities and public agencies
-                  </h2>
-                  <p
-                    className="text-ink m-0 max-w-[460px]"
-                    style={{ fontSize: 19, lineHeight: 1.6 }}
-                  >
-                    We produce for cities and public agencies with the same crew, care, and
-                    finish we bring to brands. For the City of Lancaster, that meant a
-                    commercial selling the city itself.
-                  </p>
-                </Reveal>
-                <Reveal delay={0.05}>
-                  <ProjectCard cs={LANCASTER} thumbnailUrl={thumbnails[LANCASTER.slug]} />
-                </Reveal>
-              </div>
-            </div>
-          </section>
-        )}
       </main>
       <Footer />
     </>

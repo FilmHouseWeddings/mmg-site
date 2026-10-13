@@ -20,7 +20,7 @@ const TO_EMAIL = process.env.CONTACT_TO_EMAIL ?? "dennis@filmhouseweddings.com";
 export async function POST(req: Request) {
   const { name, company, email, phone, investment, message } = await req.json();
 
-  if (!name || !company || !email || !phone || !investment || !message) {
+  if (!name || !company || !email || !phone || !message) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
       to: TO_EMAIL,
       reply_to: email,
       subject: `New inquiry from ${name} · ${company}`,
-      text: `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nInvestment: ${investment}\n\n${message}`,
+      text: `Name: ${name}\nCompany: ${company}\nEmail: ${email}\nPhone: ${phone}\nBudget range: ${investment || "not given"}\n\n${message}`,
     }),
   });
 

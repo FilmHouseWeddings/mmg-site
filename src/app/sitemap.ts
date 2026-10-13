@@ -1,21 +1,23 @@
 import type { MetadataRoute } from "next";
 import { categories, publishedCaseStudies } from "@/lib/content";
-
-const BASE = "https://www.makemovegrow.com";
+import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return [
-    { url: BASE, priority: 1 },
-    { url: `${BASE}/work`, priority: 0.9 },
+    { url: SITE_URL, lastModified, priority: 1 },
+    { url: `${SITE_URL}/work`, lastModified, priority: 0.9 },
     ...categories.map((cat) => ({
-      url: `${BASE}/work/${cat.slug}`,
+      url: `${SITE_URL}/work/${cat.slug}`,
+      lastModified,
       priority: 0.7,
     })),
     ...publishedCaseStudies.map((cs) => ({
-      url: `${BASE}/project/${cs.slug}`,
+      url: `${SITE_URL}/project/${cs.slug}`,
+      lastModified,
       priority: 0.6,
     })),
-    { url: `${BASE}/about`, priority: 0.8 },
-    { url: `${BASE}/contact`, priority: 0.8 },
+    { url: `${SITE_URL}/about`, lastModified, priority: 0.8 },
+    { url: `${SITE_URL}/contact`, lastModified, priority: 0.8 },
   ];
 }

@@ -17,12 +17,13 @@ export default function BrandStatement() {
               fontSize: "clamp(28px, 3.6vw, 46px)",
               lineHeight: 1.15,
               letterSpacing: "-0.015em",
-              maxWidth: "26ch",
+              maxWidth: "32ch",
             }}
           >
-            Backed by 15 years of experience, MMG is a storytelling partner
-            for brands and entities that{" "}
-            <span className="text-accent">shape culture.</span>
+            Content experts who back up brands, PR firms, agencies, and event
+            teams, from the{" "}
+            <span className="text-accent">live moment</span> to the finished
+            commercial.
           </h2>
         </Reveal>
         <Reveal delay={0.16}>

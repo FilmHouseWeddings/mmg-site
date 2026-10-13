@@ -33,11 +33,30 @@ export async function generateMetadata({
     return { title: "Project" };
   }
 
+  const description =
+    cs.metaDescription ??
+    (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis);
+  const poster = cs.heroVideo
+    ? await getVimeoThumbnail(cs.heroVideo.vimeoId, cs.heroVideo.vimeoHash)
+    : cs.youtubeId
+      ? `https://i.ytimg.com/vi/${cs.youtubeId}/hqdefault.jpg`
+      : (cs.photos?.[0]?.src ?? null);
+
   return {
     title: cs.title,
-    description:
-      cs.metaDescription ??
-      (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis),
+    description,
+    openGraph: {
+      title: cs.title,
+      description,
+      type: "article",
+      ...(poster ? { images: [{ url: poster }] } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: cs.title,
+      description,
+      ...(poster ? { images: [poster] } : {}),
+    },
   };
 }
 
@@ -92,6 +111,28 @@ export default async function ProjectPage({
     });
   }
 
+  schemas.push({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.makemovegrow.com" },
+      { "@type": "ListItem", position: 2, name: "What We Do", item: "https://www.makemovegrow.com/work" },
+      { "@type": "ListItem", position: 3, name: cs.title, item: url },
+    ],
+  });
+
+  if (!cs.heroVideo && cs.youtubeId) {
+    schemas.push({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: cs.title,
+      description: cs.metaDescription ?? (isPlaceholder(cs.synopsis) ? cs.roleLine : cs.synopsis),
+      thumbnailUrl: `https://i.ytimg.com/vi/${cs.youtubeId}/hqdefault.jpg`,
+      embedUrl: `https://www.youtube.com/embed/${cs.youtubeId}`,
+      url,
+    });
+  }
+
   if (cs.heroVideo) {
     schemas.push({
       "@context": "https://schema.org",
@@ -126,14 +167,32 @@ export default async function ProjectPage({
           </Link>
         </Reveal>
 
-        <Reveal delay={0.05}>
-          <CaseVideo
-            vimeoId={cs.heroVideo?.vimeoId}
-            vimeoHash={cs.heroVideo?.vimeoHash}
-            bg={cs.bg}
-            hero
-          />
-        </Reveal>
+        {/* Text only case studies (no video yet) skip the player entirely. */}
+        {cs.heroVideo && (
+          <Reveal delay={0.05}>
+            <CaseVideo
+              vimeoId={cs.heroVideo.vimeoId}
+              vimeoHash={cs.heroVideo.vimeoHash}
+              bg={cs.bg}
+              hero
+            />
+          </Reveal>
+        )}
+
+        {!cs.heroVideo && cs.youtubeId && (
+          <Reveal delay={0.05}>
+            <div className="relative aspect-video w-full overflow-hidden bg-ink">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${cs.youtubeId}?rel=0`}
+                title={cs.title}
+                loading="lazy"
+                allow="accelerometer; encrypted-media; picture-in-picture; fullscreen"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full border-0"
+              />
+            </div>
+          </Reveal>
+        )}
 
         <Reveal delay={0.1}>
           <div className="mt-8 md:mt-10">
@@ -148,6 +207,14 @@ export default async function ProjectPage({
             </p>
           </div>
         </Reveal>
+
+        {cs.photosAtTop && cs.photos && cs.photos.length > 0 && (
+          <Reveal delay={0.12}>
+            <div className="mt-8 md:mt-10">
+              <PhotoCollage photos={cs.photos} layout={cs.photosLayout} />
+            </div>
+          </Reveal>
+        )}
 
         {/* Template sections below auto-appear once real copy replaces the
             [PLACEHOLDER] strings / TBD credits in content.ts. */}
@@ -181,13 +248,13 @@ export default async function ProjectPage({
           <ProjectSections sections={cs.sections} />
         )}
 
-        {cs.photos && cs.photos.length > 0 && (
+        {!cs.photosAtTop && cs.photos && cs.photos.length > 0 && (
           <Reveal delay={0.22}>
             <div className="mt-14 md:mt-20">
               <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent mb-5">
                 {cs.photosLabel ?? "Photography"}
               </p>
-              <PhotoCollage photos={cs.photos} />
+              <PhotoCollage photos={cs.photos} layout={cs.photosLayout} />
             </div>
           </Reveal>
         )}

@@ -28,7 +28,10 @@ export async function generateMetadata({
   const { category } = await params;
   const cat = getCategory(category);
   if (!cat) return { title: "What We Do" };
-  return { title: cat.label };
+  return {
+    title: cat.label,
+    description: `${cat.blurb} Work by MMG, content experts in Los Angeles and Orange County.`,
+  };
 }
 
 export default async function WorkCategoryPage({

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Archivo, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { services } from "@/lib/content";
+import { SITE_URL, SITE_TITLE, SITE_DESCRIPTION, SITE_LONG_DESCRIPTION } from "@/lib/seo";
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -15,26 +17,25 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.makemovegrow.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    template: "%s — MMG",
-    default: "MMG — Make. Move. Grow. | Los Angeles & Orange County Production House",
+    template: "%s | MMG",
+    default: SITE_TITLE,
   },
-  description:
-    "MMG is a Los Angeles and Orange County production house backed by 15 years of experience. You bring the idea. We bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+  description: SITE_DESCRIPTION,
+  // "./" resolves to each page's own URL, so every route is its own canonical.
+  alternates: { canonical: "./" },
   openGraph: {
     siteName: "MMG",
     type: "website",
     locale: "en_US",
-    title: "MMG — Make. Move. Grow. | Los Angeles & Orange County Production House",
-    description:
-      "MMG is a Los Angeles and Orange County production house backed by 15 years of experience. You bring the idea. We bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "MMG — Make. Move. Grow. | Los Angeles & Orange County Production House",
-    description:
-      "MMG is a Los Angeles and Orange County production house backed by 15 years of experience. You bring the idea. We bring the crew, the cameras, and the finish. Film, events, broadcast, photography.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
 };
 
@@ -54,27 +55,61 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "MMG",
-              alternateName: "Make. Move. Grow.",
-              url: "https://www.makemovegrow.com",
-              email: "hello@makemovegrow.com",
-              description:
-                "MMG is a Los Angeles and Orange County production house backed by 15 years of production experience, producing brand films, corporate events, live broadcast, and photography for brands, agencies, and institutions.",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Los Angeles",
-                addressRegion: "CA",
-                addressCountry: "US",
-              },
-              areaServed: ["Los Angeles", "Orange County", "Worldwide"],
-              founder: {
-                "@type": "Person",
-                name: "Dennis Mulyar",
-                jobTitle: "Managing Director",
-                description:
-                  "Fifteen years of experience in video production.",
-              },
+              "@graph": [
+                {
+                  "@type": ["Organization", "ProfessionalService"],
+                  "@id": `${SITE_URL}/#organization`,
+                  name: "MMG",
+                  alternateName: "Make. Move. Grow.",
+                  url: SITE_URL,
+                  logo: `${SITE_URL}/icon.png`,
+                  email: "hello@makemovegrow.com",
+                  description: SITE_LONG_DESCRIPTION,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Los Angeles",
+                    addressRegion: "CA",
+                    addressCountry: "US",
+                  },
+                  areaServed: ["Los Angeles", "Orange County", "Worldwide"],
+                  audience: {
+                    "@type": "BusinessAudience",
+                    audienceType:
+                      "Brands, PR firms, agencies, event teams, and public agencies",
+                  },
+                  knowsAbout: [
+                    "Video production",
+                    "Event coverage",
+                    "Commercial production",
+                    "Brand films",
+                    "Red carpet coverage",
+                    "Event and commercial photography",
+                  ],
+                  hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Services",
+                    itemListElement: services.map((name) => ({
+                      "@type": "Offer",
+                      itemOffered: { "@type": "Service", name },
+                    })),
+                  },
+                  // No `foundingDate`: the 15 years is the founder's
+                  // production experience, not the age of the company.
+                  founder: {
+                    "@type": "Person",
+                    name: "Dennis Mulyar",
+                    jobTitle: "Managing Director",
+                    description: "Fifteen years of experience in video production.",
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${SITE_URL}/#website`,
+                  url: SITE_URL,
+                  name: "MMG",
+                  publisher: { "@id": `${SITE_URL}/#organization` },
+                },
+              ],
             }),
           }}
         />

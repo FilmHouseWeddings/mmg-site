@@ -6,6 +6,8 @@ import RevealEmail from "@/components/RevealEmail";
 
 export const metadata: Metadata = {
   title: "Contact",
+  description:
+    "Start a project with MMG. Tell us about your event, launch, or commercial and we will come back fast. Los Angeles and Orange County.",
 };
 
 const KICKER_CLASS = "font-mono uppercase text-faint mb-[14px]";
@@ -55,7 +57,7 @@ export default function ContactPage() {
                     className="font-mono uppercase text-muted mt-2 mb-0"
                     style={{ fontSize: 12, letterSpacing: "0.12em" }}
                   >
-                    Managing Director &middot; 15 years in production
+                    Managing Director
                   </p>
                 </div>
                 <div>

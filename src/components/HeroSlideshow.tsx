@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { publishedCaseStudies } from "@/lib/content";
+import { heroSlideCaseStudies } from "@/lib/content";
 
 const AUTO_ADVANCE_MS = 6000;
 
@@ -60,7 +60,7 @@ function CursorArrow({ side }: { side: "left" | "right" }) {
 }
 
 export default function HeroSlideshow() {
-  const slides = publishedCaseStudies.filter((cs) => cs.heroVideo);
+  const slides = heroSlideCaseStudies;
 
   const [active, setActive] = useState(0);
   const [navCount, setNavCount] = useState(0);
@@ -315,7 +315,7 @@ export default function HeroSlideshow() {
 
         {/* Brand statement overlay */}
         {brandMounted && (
-          <h1
+          <p
             className="font-display absolute inset-0 flex items-center justify-center text-center px-6 pointer-events-none m-0"
             style={{
               fontSize: "clamp(36px, 6vw, 64px)",
@@ -334,7 +334,7 @@ export default function HeroSlideshow() {
             <span>
               Ideas deserve <span className="text-accent">execution.</span>
             </span>
-          </h1>
+          </p>
         )}
       </div>
 

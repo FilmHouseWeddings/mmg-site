@@ -94,13 +94,7 @@ export default function Footer() {
           className="font-mono text-faint"
           style={{ fontSize: 11, letterSpacing: "0.06em" }}
         >
-          © 2026 makemovegrow.{" "}
-          <Link
-            href="/copyright-policy"
-            className="text-faint no-underline hover:text-accent transition-colors duration-[250ms]"
-          >
-            copyright policy
-          </Link>
+          © 2026 makemovegrow.
         </div>
       </div>
     </footer>

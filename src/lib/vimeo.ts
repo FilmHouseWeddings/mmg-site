@@ -30,7 +30,9 @@ export async function getThumbnailsBySlug(
       const video = cs.heroVideo;
       const url = video
         ? await getVimeoThumbnail(video.vimeoId, video.vimeoHash)
-        : null;
+        : cs.youtubeId
+          ? `https://i.ytimg.com/vi/${cs.youtubeId}/hqdefault.jpg`
+          : null;
       return [cs.slug, url] as const;
     })
   );

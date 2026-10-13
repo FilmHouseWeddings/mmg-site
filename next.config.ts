@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "i.vimeocdn.com" }],
+  },
   async redirects() {
     return [
       {
@@ -9,6 +11,11 @@ const nextConfig: NextConfig = {
         destination: "/work",
         permanent: true,
       },
+      { source: "/copyright-policy", destination: "/", permanent: true },
+      { source: "/work/branded", destination: "/work/brand-campaigns", permanent: true },
+      { source: "/work/event-coverage", destination: "/work/events-launches", permanent: true },
+      { source: "/work/corporate-government", destination: "/work/public-sector", permanent: true },
+      { source: "/work/live-action", destination: "/work", permanent: true },
       {
         source: "/the-group",
         destination: "/about",

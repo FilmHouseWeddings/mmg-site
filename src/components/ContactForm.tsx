@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 const FIELDS = [
   { label: "Your name", name: "name", type: "text", placeholder: "Your name", autoComplete: "name" },
-  { label: "Company name", name: "company", type: "text", placeholder: "Company name", autoComplete: "organization" },
+  { label: "Company or agency", name: "company", type: "text", placeholder: "Company or agency", autoComplete: "organization" },
   { label: "Email", name: "email", type: "email", placeholder: "you@company.com", autoComplete: "email" },
   { label: "Phone number", name: "phone", type: "tel", placeholder: "(555) 555-5555", autoComplete: "tel" },
-  { label: "Investment", name: "investment", type: "text", placeholder: "Ballpark budget", autoComplete: "off" },
+  { label: "Budget range", name: "investment", type: "text", placeholder: "Budget range, if you have one", autoComplete: "off" },
 ] as const;
 
 export default function ContactForm() {
@@ -55,7 +55,7 @@ export default function ContactForm() {
         `Company: ${data.company}`,
         `Email: ${data.email}`,
         `Phone: ${data.phone}`,
-        `Investment: ${data.investment}`,
+        `Budget range: ${data.investment || "not given"}`,
         "",
         data.message,
       ].join("\n");
@@ -99,7 +99,7 @@ export default function ContactForm() {
             name={field.name}
             placeholder={field.placeholder}
             autoComplete={field.autoComplete}
-            required
+            required={field.name !== "investment"}
             className={fieldClass}
           />
         </div>
@@ -116,7 +116,7 @@ export default function ContactForm() {
         <textarea
           id="contact-message"
           name="message"
-          placeholder="What are you making, and when do you need it"
+          placeholder="What is the moment, and when do you need it"
           required
           className={`${fieldClass} resize-y`}
           style={{ minHeight: 88 }}

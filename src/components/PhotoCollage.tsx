@@ -4,32 +4,86 @@ import type { Photo } from "@/lib/content";
 /**
  * Stills collage for a case study.
  *
- * Uses CSS multi-column masonry rather than a grid: the stills run from 1154x2000
- * portraits to 2000x1493 landscapes, and columns absorb that mix without cropping
- * or leaving ragged rows. Each image keeps its intrinsic aspect ratio — no `fill`,
- * no `object-cover` — so nothing is clipped.
- *
- * The gap is deliberately tighter than the `gap-8 md:gap-12` used for secondary
- * media on the project page, so the block reads as one mosaic instead of a
- * stack of separate items.
+ * Even grid (see the comment in the component). The earlier masonry columns left
+ * ragged bottoms and let pale shots bleed into the page background.
  */
-export default function PhotoCollage({ photos }: { photos: Photo[] }) {
+export default function PhotoCollage({
+  photos,
+  layout,
+}: {
+  photos: Photo[];
+  layout?: "stack";
+}) {
   if (photos.length === 0) return null;
 
-  return (
-    <div className="columns-2 lg:columns-3 gap-2 md:gap-3 [column-fill:balance]">
-      {photos.map((photo) => (
-        <div key={photo.src} className="mb-2 md:mb-3 break-inside-avoid">
+  // Pre-made collages (several shots already composed into one image): one per row,
+  // full width, never cropped.
+  if (layout === "stack") {
+    return (
+      <div className="flex flex-col gap-2 md:gap-3">
+        {photos.map((photo) => (
           <Image
+            key={photo.src}
             src={photo.src}
             alt={photo.alt}
             width={photo.w}
             height={photo.h}
-            sizes="(min-width: 1024px) 33vw, 50vw"
+            sizes="(min-width: 1200px) 1128px, 100vw"
             className="w-full h-auto block"
           />
-        </div>
-      ))}
+        ))}
+      </div>
+    );
+  }
+
+
+  // One or two stills do not need a mosaic: show them side by side.
+  if (photos.length <= 2) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
+        {photos.map((photo) => (
+          <div key={photo.src} className="relative overflow-hidden bg-[#ECE9E2] ring-1 ring-inset ring-line aspect-[3/2]">
+            <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // A portrait fills 1 of 3 columns, a landscape 2. If the total does not fill the
+  // last row, drop the last landscape rather than leave a hole in the grid.
+  const units = (list: Photo[]) => list.reduce((n, p) => n + (p.w > p.h ? 2 : 1), 0);
+  let shown = photos;
+  while (shown.length > 1 && units(shown) % 3 !== 0) {
+    const idx = shown.map((p) => p.w > p.h).lastIndexOf(true);
+    if (idx === -1) break;
+    shown = shown.filter((_, i) => i !== idx);
+  }
+
+  // Tidy grid: portraits are one 3:4 tile, landscapes span two columns at 3:2, so
+  // every row is the same height. Tiles carry a tint and hairline so pale product
+  // shots read as framed pictures instead of dissolving into the page.
+  return (
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 [grid-auto-flow:dense]">
+      {shown.map((photo) => {
+        const wide = photo.w > photo.h;
+        return (
+          <div
+            key={photo.src}
+            className={`relative overflow-hidden bg-[#ECE9E2] ring-1 ring-inset ring-line ${
+              wide ? "col-span-2 aspect-[3/2]" : "aspect-[3/4]"
+            }`}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              fill
+              sizes={wide ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 1024px) 33vw, 50vw"}
+              className="object-cover"
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

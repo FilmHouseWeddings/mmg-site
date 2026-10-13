@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { feedCaseStudies, categories, type CaseStudy } from "@/lib/content";
+import { Fragment } from "react";
 import Reveal from "./Reveal";
 
 function categoryLabel(cs: CaseStudy): string {
@@ -65,8 +66,8 @@ export default function Feed() {
         {feedCaseStudies.map((cs, index) => {
           const reversed = index % 2 === 1;
           return (
+            <Fragment key={cs.slug}>
             <Link
-              key={cs.slug}
               href={`/project/${cs.slug}`}
               className="group flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-[3%]"
             >
@@ -119,6 +120,7 @@ export default function Feed() {
                 </span>
               </Reveal>
             </Link>
+            </Fragment>
           );
         })}
       </div>
